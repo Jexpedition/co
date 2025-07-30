@@ -645,7 +645,7 @@ const codigoDescuento = inputCodigo?.value.trim() || '';
 const mensajeDescuento = mensajeCodigo?.textContent?.trim() || '';
 
 // ✅ Abrir la nueva pestaña con todos los datos necesarios
-const ruta = `/boleto/boleto.html`;
+const ruta = `boleto.html`;
 const parametros = new URLSearchParams({
   producto: nombreProducto,
   ciudad,
