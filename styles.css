@@ -1756,6 +1756,34 @@ background: #fff;
 
 
 /* === Footer === */
+
+
+.precio-tachado {
+  opacity: 0.7;
+  text-decoration: line-through;
+  font-size: 15px;
+  display: block;
+  line-height: 1;
+}
+
+.precio-grande {
+  font-weight: 700;
+}
+
+.badge-descuento {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.5rem;
+  background: #e6f9ee;
+}
+
+
+
+
+
+
+
 footer {
   background: #ff8800;
   color: white;

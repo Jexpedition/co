@@ -9,7 +9,6 @@ body {
   min-height: 100vh;
 }
 
-
 .hero-logo {
   max-height: 40px;
   width: auto;
@@ -29,7 +28,6 @@ body {
   margin-right: auto;
 }
 
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -38,16 +36,18 @@ body {
 
 .boleto {
   width: 1056px;
-  height: 816px;
+  /* height: 816px; ❌ Eliminar esta línea */
+  min-height: 816px; /* ✅ Asegura una altura mínima */
   background: white;
   border-radius: 12px;
-  padding: 24px 40px; /* 🧩 Reducido */
+  padding: 24px 40px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
 }
+
 
 .top {
   display: flex;
@@ -71,31 +71,77 @@ body {
 
 .info {
   display: grid;
+  color: green;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px 20px; /* 🧩 Menos espacio entre campos */
-  font-size: 14px;
-  padding: 15px 0; /* 🧩 Reducido */
+  gap: 0px 16px; /* 🧩 Menos espacio entre campos */
+  font-size: 13px;
+  padding: 10px 0; /* 🧩 Reducido */
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2px; /* 🧩 Más compacto */
+  margin-bottom: 1px; /* 🧩 Más compacto */
 }
+
+.precio-original {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-right: 0.5rem;
+}
+
+.precio-final {
+  font-weight: bold;
+}
+
 
 .label {
   text-transform: uppercase;
-  font-size: 11px; /* 🧩 Más compacto */
+  font-size: 10px; /* 🧩 Más compacto */
   font-weight: bold;
   color: #000000;
 }
 
 .valor {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: #555;
-  white-space: pre-wrap;
+
 }
+
+
+
+.boleto {
+  position: relative; /* necesario para ubicar .qr-container absolutamente dentro de él */
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Pantallas grandes: QR fijo abajo a la derecha */
+@media (min-width: 768px) {
+  .qr-container {
+    position: absolute;
+    bottom: 6rem;
+    right: 4rem;
+    align-items: flex-end;
+    text-align: right;
+    margin-top: 0; /* quita el margen para que no afecte el layout */
+  }
+}
+
+.qr-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+
 
 .footer {
   text-align: center;
@@ -133,7 +179,7 @@ body {
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, opacity 0.3s ease;
 }
 
 .acciones button {
@@ -154,6 +200,13 @@ body {
   background-color: #1ebe57;
 }
 
+/* 🔒 Estilo cuando el botón de WhatsApp está deshabilitado */
+.acciones a.deshabilitado {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #9be5bb; /* tono más claro para indicar inactividad */
+}
 
 /* 📱 Escalado en móviles */
 @media (max-width: 768px) {
@@ -161,14 +214,14 @@ body {
     margin-top: 16px;
     width: 100vw;
     height: auto;
-    padding: 16px;
+    padding: 16px 24px;
     transform: scale(0.95);
     transform-origin: top center;
   }
 
   .info {
     grid-template-columns: 1fr;
-    gap: 8px 0;
+    gap: 2px 0;
   }
 
   .acciones {
@@ -176,3 +229,7 @@ body {
     margin-top: 10px;
   }
 }
+
+
+
+

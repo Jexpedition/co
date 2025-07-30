@@ -4,7 +4,7 @@ const productos = [
     ciudad: "San Andrés",
     nombre: "Viaje completo 4 días",
     nombreEN: "Complete 4 day Trip",   //ingles
-    tipo: "viaje",
+    tipo: "Viaje",
     imagen: "img/sanandres.jpg",
     imagenes: [
       "img/sanandres.jpg",
@@ -18,7 +18,7 @@ const productos = [
     ciudad: "Cartagena",
     nombre: "Pasadía en Isla Barú",
     nombreEN: "Day trip to Isla Barú",   //ingles
-    tipo: "pasadía",
+    tipo: "Pasadía",
     imagen: "img/baru.jpg",
     imagenes: [
       "img/baru.jpg",
@@ -32,7 +32,7 @@ const productos = [
     ciudad: "Santa Marta",
     nombre: "Tour a Ciudad Perdida",
     nombreEN: "Tour to Lost City",   //ingles
-    tipo: "tour",
+    tipo: "Tour",
     imagen: "img/santamarta.jpg",
     imagenes: [
       "img/santamarta.jpg",
@@ -46,7 +46,7 @@ const productos = [
   ciudad: "San Andrés",
   nombre: "Tour Acuático en Johnny Cay",
   nombreEN: "Johnny Cay Water Tour",   //ingles
-  tipo: "tour",
+  tipo: "Tour",
   imagen: "img/sanandres2.jpg",
   imagenes: [
     "img/sanandres2.jpg",
@@ -60,7 +60,7 @@ const productos = [
   ciudad: "Cartagena",
   nombre: "Recorrido en Chiva Rumbera",
   nombreEN: "Chiva Rumbera Tour",   //ingles
-  tipo: "pasadía",
+  tipo: "Pasadía",
   imagen: "img/baru2.jpg",
   imagenes: [
     "img/baru2.jpg",
@@ -74,7 +74,7 @@ const productos = [
   ciudad: "Santa Marta",
   nombre: "Día de Playa en Bahía Concha",
   nombreEN: "Beach Day in Bahia Concha",   //ingles
-  tipo: "pasadía",
+  tipo: "Pasadía",
   imagen: "img/santamarta2.jpg",
   imagenes: [
     "img/santamarta2.jpg",
@@ -88,7 +88,7 @@ const productos = [
   ciudad: "Cartagena",
   nombre: "Crucero al atardecer con cena",
   nombreEN: "Sunset Dinner Cruise",   //ingles
-  tipo: "viaje",
+  tipo: "Viaje",
   imagen: "img/baru3.jpg",
   imagenes: [
     "img/baru3.jpg",
@@ -102,7 +102,7 @@ const productos = [
   ciudad: "Santa Marta",
   nombre: "Tour indígena en Sierra Nevada",
   nombreEN: "Indigenous tour in Sierra Nevada",   //ingles
-  tipo: "tour",
+  tipo: "Tour",
   imagen: "img/santamarta3.jpg",
   imagenes: [
     "img/santamarta3.jpg",
@@ -116,7 +116,7 @@ const productos = [
   ciudad: "San Andrés",
   nombre: "Buceo en arrecifes coralinos",
   nombreEN: "Diving in coral reefs",   //ingles
-  tipo: "pasadía",
+  tipo: "Pasadía",
   imagen: "img/sanandres3.jpg",
   imagenes: [
     "img/sanandres3.jpg",
@@ -321,9 +321,9 @@ function abrirModalProducto(prod) {
   <label for="metodo-pago">Método de pago:</label>
   <select id="metodo-pago">
     <option value="" disabled selected>Seleccione una opción</option>
-    <option value="efectivo">Efectivo</option>
-    <option value="transferencia">Transferencia</option>
-    <option value="tarjeta">Tarjeta</option>
+    <option value="Efectivo">Efectivo</option>
+    <option value="Transferencia">Transferencia</option>
+    <option value="Tarjeta">Tarjeta</option>
   </select>
 </div>
 
@@ -358,7 +358,6 @@ function abrirModalProducto(prod) {
                    data-simbolo="${precioTexto.match(/[^\d.,\s]+/g)?.[0] || '$'}"
                    class="precio-grande">
                 ${precioTexto}
-                <span class="etiqueta-precio">Precio</span>
               </div>
 <a id="btn-whatsapp"
    target="_blank"
@@ -543,10 +542,9 @@ const precioTotal =
 
   // Traducciones de tipo de producto
   const traduccionesTipo = {
-    "viaje": "Travel",
-    "pasadía": "Day Trip",
-    "pasadia": "Day Trip",
-    "tour": "Tour"
+    "Viaje": "Travel",
+    "Pasadía": "Day Trip",
+    "Tour": "Tour"
   };
 
   // Traducciones de métodos de pago
@@ -634,7 +632,11 @@ const precioTotal =
     `*Location:* ${ubicacionTitular}\n` +
     `*Address:* ${direccionTitular}\n\n` +
     `*Payment method:* ${pagoTraducido}\n` +
-    `*Total price:* ${precioTotal}\n\n`;
+    `*Total price:* ${precioTotal}\n\n`; +
+
+    `*Envia tu reserva aqui ➡️*\n`+
+    `*Send your reservation here ➡️`
+
 
     const mensajeWhatsApp = encodeURIComponent(mensaje);
 const url = `https://wa.me/57${numero}?text=${mensajeWhatsApp}`;
@@ -861,26 +863,20 @@ function initCuponDescuento(scope = document) {
       maximumFractionDigits: moneda === 'COP' ? 0 : 2
     });
 
-    if (pct > 0) {
-      const subtotalTxt = `${simbolo} ${formato.format(subtotal)}`;
-      const totalTxt    = `${simbolo} ${formato.format(totalConDescuento)}`;
-      precioTotalEl.innerHTML = `
-        <span class="precio-tachado" style="opacity:.7;text-decoration:line-through;display:block;line-height:1;">
-          ${subtotalTxt}
-        </span>
-        <span class="precio-grande" style="display:block;font-weight:700;">
-          ${totalTxt}
-        </span>
-        <span class="badge-descuento" style="display:inline-block;font-size:.85rem;padding:.15rem .5rem;border-radius:.5rem;background:#e6f9ee;">
-          −${pct}% OFF
-        </span>
-        <span class="etiqueta-precio">Precio</span>
-      `;
-    } else {
-      precioTotalEl.innerHTML = `
-        ${simbolo} ${formato.format(subtotal)}
-        <span class="etiqueta-precio">Precio</span>
-      `;
+if (pct > 0) {
+  const subtotalTxt = `${simbolo} ${formato.format(subtotal)}`;
+  const totalTxt = `${simbolo} ${formato.format(totalConDescuento)}`;
+  precioTotalEl.innerHTML = `
+    <span class="etiqueta-precio">Precio</span>
+    <span class="precio-tachado">${subtotalTxt}</span>
+    <span class="precio-grande">${totalTxt}</span>
+    <span class="badge-descuento">−${pct}% OFF</span>
+  `;
+} else {
+  precioTotalEl.innerHTML = `
+    <span class="etiqueta-precio">Total</span>
+    ${simbolo} ${formato.format(subtotal)}
+  `;
     }
   }
 
