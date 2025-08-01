@@ -161,12 +161,6 @@ header {
   transition: all 0.3s ease;
 }
 
-#barra-fija.fijo {
-  top: 0;
-  left: 0;
-  z-index: 999;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
 
 
 

@@ -155,11 +155,24 @@ async function descargarPDF() {
   const y = (pageHeight - imgHeight) / 2;
 
   pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
-  pdf.save(`boleto_${refGenerado}.pdf`);
 
+  // ✅ Nueva forma compatible con iOS y Android
+  const pdfBlob = pdf.output('blob');
+  const blobURL = URL.createObjectURL(pdfBlob);
+
+  const link = document.createElement('a');
+  link.href = blobURL;
+  link.download = `boleto_${refGenerado}.pdf`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(blobURL); // Limpia memoria
+
+  // ✅ Habilitar botón de WhatsApp
   const btnWsp = document.getElementById('btn-wsp');
   if (btnWsp) {
     btnWsp.style.pointerEvents = 'auto';
     btnWsp.style.opacity = '1';
   }
 }
+
