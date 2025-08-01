@@ -138,6 +138,7 @@ async function descargarPDF() {
   });
 
   const imgData = canvas.toDataURL('image/png');
+
   const isMobile = window.innerWidth <= 768;
 
   const pdf = new jspdf.jsPDF({
@@ -148,6 +149,7 @@ async function descargarPDF() {
 
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
+
   const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
   const imgWidth = canvas.width * ratio;
   const imgHeight = canvas.height * ratio;
@@ -155,34 +157,7 @@ async function descargarPDF() {
   const y = (pageHeight - imgHeight) / 2;
 
   pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
-
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-  const pdfBlob = pdf.output('blob');
-  const blobUrl = URL.createObjectURL(pdfBlob);
-
-  if (isIOS) {
-    // ✅ Mostrar vista previa del PDF en una nueva pestaña
-    window.open(blobUrl, '_blank');
-  } else {
-    // ✅ Descargar directamente en Android y demás navegadores
-    const link = document.createElement('a');
-    link.href = blobUrl;
-    link.download = `boleto_${refGenerado}.pdf`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  // ✅ Habilitar botón de WhatsApp
-  const btnWsp = document.getElementById('btn-wsp');
-  if (btnWsp) {
-    btnWsp.style.pointerEvents = 'auto';
-    btnWsp.style.opacity = '1';
-  }
-
-  // ✅ Liberar memoria
-  setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+  pdf.save(`Boleto_${refGenerado}.pdf`);
 }
 
 

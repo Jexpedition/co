@@ -35,6 +35,7 @@ body {
 }
 
 .boleto {
+  margin-top: 20px;
   width: 1056px;
   /* height: 816px; ❌ Eliminar esta línea */
   min-height: 816px; /* ✅ Asegura una altura mínima */
