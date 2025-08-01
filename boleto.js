@@ -156,17 +156,23 @@ async function descargarPDF() {
 
   pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
 
-  // ✅ Nueva forma compatible con iOS y Android
-  const pdfBlob = pdf.output('blob');
-  const blobURL = URL.createObjectURL(pdfBlob);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-  const link = document.createElement('a');
-  link.href = blobURL;
-  link.download = `boleto_${refGenerado}.pdf`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(blobURL); // Limpia memoria
+  const pdfBlob = pdf.output('blob');
+  const blobUrl = URL.createObjectURL(pdfBlob);
+
+  if (isIOS) {
+    // ✅ Mostrar vista previa del PDF en una nueva pestaña
+    window.open(blobUrl, '_blank');
+  } else {
+    // ✅ Descargar directamente en Android y demás navegadores
+    const link = document.createElement('a');
+    link.href = blobUrl;
+    link.download = `boleto_${refGenerado}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 
   // ✅ Habilitar botón de WhatsApp
   const btnWsp = document.getElementById('btn-wsp');
@@ -174,5 +180,9 @@ async function descargarPDF() {
     btnWsp.style.pointerEvents = 'auto';
     btnWsp.style.opacity = '1';
   }
+
+  // ✅ Liberar memoria
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
 }
+
 
