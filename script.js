@@ -837,6 +837,7 @@ const CUPONES = {
   'MULETT20': 20,
   'FERRER20': 20,
   'GAMARRA20': 20,
+  'MAURICIO20': 20,
   'ANONIMOX20': 20,
 };
 
