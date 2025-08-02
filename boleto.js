@@ -117,17 +117,13 @@ if (!precioOriginal && codigo && mensaje && precio) {
   const btnWsp = document.getElementById('btn-wsp');
   if (btnWsp && urlWsp) {
     btnWsp.href = urlWsp;
-    btnWsp.style.pointerEvents = 'none';
-    btnWsp.style.opacity = '0.5';
-
-    btnWsp.addEventListener('click', function (e) {
-      if (btnWsp.style.pointerEvents === 'none') {
-        e.preventDefault();
-        alert('Por favor descarga el boleto antes de enviarlo por WhatsApp.');
-      }
-    });
-  }
+    btnWsp.style.pointerEvents = 'auto';
+    btnWsp.style.opacity = '1';
+}
 });
+
+
+
 
 // ✅ Descargar PDF
 async function descargarPDF() {

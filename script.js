@@ -12,7 +12,8 @@ const productos = [
       "img/sanandres3.jpg"
     ],
     precioCOP: 100000,
-    descripcion: "Disfruta de 4 días inolvidables en las playas paradisíacas de San Andrés. Todo incluido: vuelos, hotel, alimentación y tours."
+    descripcion: "Disfruta de 4 días inolvidables en las playas paradisíacas de San Andrés. Todo incluido: vuelos, hotel, alimentación y tours.",
+    whatsapp: "+57 3239717041",
   },
   {
     ciudad: "Cartagena",
@@ -26,7 +27,8 @@ const productos = [
       "img/baru3.jpg"
     ],
     precioCOP: 100000,
-    descripcion: "Escápate por un día a las aguas cristalinas de Isla Barú. Transporte, almuerzo y actividades acuáticas incluidas."
+    descripcion: "Escápate por un día a las aguas cristalinas de Isla Barú. Transporte, almuerzo y actividades acuáticas incluidas.",
+    whatsapp: "+57 3024345404",
   },
   {
     ciudad: "Santa Marta",
@@ -40,7 +42,8 @@ const productos = [
       "img/santamarta3.jpg"
     ],
     precioCOP: 800000,
-    descripcion: "Aventura de varios días en la Sierra Nevada hasta Ciudad Perdida, una experiencia mágica llena de historia y naturaleza."
+    descripcion: "Aventura de varios días en la Sierra Nevada hasta Ciudad Perdida, una experiencia mágica llena de historia y naturaleza.",
+    whatsapp: "+57 3239717041",
   },
   {
   ciudad: "San Andrés",
@@ -54,7 +57,8 @@ const productos = [
     "img/sanandres.jpg"
   ],
   precioCOP: 150000,
-  descripcion: "Explora Johnny Cay con guía local, disfruta de playas cristalinas, snorkeling y almuerzo típico isleño."
+  descripcion: "Explora Johnny Cay con guía local, disfruta de playas cristalinas, snorkeling y almuerzo típico isleño.",
+  whatsapp: "+57 3239717041",
 },
 {
   ciudad: "Cartagena",
@@ -68,7 +72,8 @@ const productos = [
     "img/baru3.jpg"
   ],
   precioCOP: 70000,
-  descripcion: "Vive la fiesta cartagenera en una chiva rumbera con música, bebidas, y paradas por sitios emblemáticos."
+  descripcion: "Vive la fiesta cartagenera en una chiva rumbera con música, bebidas, y paradas por sitios emblemáticos.",
+  whatsapp: "+57 3239717041",
 },
 {
   ciudad: "Santa Marta",
@@ -82,7 +87,8 @@ const productos = [
     "img/santamarta3.jpg"
   ],
   precioCOP: 85000,
-  descripcion: "Relájate en Bahía Concha, una joya del Parque Tayrona. Transporte, entrada y refrigerio incluidos."
+  descripcion: "Relájate en Bahía Concha, una joya del Parque Tayrona. Transporte, entrada y refrigerio incluidos.",
+  whatsapp: "+57 3239717041",
 },
 {
   ciudad: "Cartagena",
@@ -96,7 +102,8 @@ const productos = [
     "img/baru2.jpg"
   ],
   precioCOP: 180000,
-  descripcion: "Navega por la bahía de Cartagena al atardecer mientras disfrutas de una cena gourmet a bordo."
+  descripcion: "Navega por la bahía de Cartagena al atardecer mientras disfrutas de una cena gourmet a bordo.",
+  whatsapp: "+57 3239717041",
 },
 {
   ciudad: "Santa Marta",
@@ -110,7 +117,8 @@ const productos = [
     "img/santamarta.jpg"
   ],
   precioCOP: 250000,
-  descripcion: "Adéntrate en la cultura indígena Wiwa en una experiencia única de aprendizaje y conexión con la naturaleza."
+  descripcion: "Adéntrate en la cultura indígena Wiwa en una experiencia única de aprendizaje y conexión con la naturaleza.",
+  whatsapp: "+57 3239717041",
 },
 {
   ciudad: "San Andrés",
@@ -124,10 +132,14 @@ const productos = [
     "img/sanandres2.jpg"
   ],
   precioCOP: 220000,
-  descripcion: "Explora el increíble ecosistema submarino de San Andrés con todo el equipo incluido y guía profesional."
+  descripcion: "Explora el increíble ecosistema submarino de San Andrés con todo el equipo incluido y guía profesional.",
+  whatsapp: "+57 3239717041",
 },
-
 ];
+
+
+
+
 
 
 
@@ -306,7 +318,7 @@ function abrirModalProducto(prod) {
   <select id="codigo-internacional">
     <option>Cargando códigos...</option>
   </select>
-  <input type="tel" id="celular-titular" placeholder="Ej. 3123456789" />
+  <input type="tel" id="celular-titular" placeholder="Numero telefonico" />
 </div>
 
 
@@ -362,7 +374,7 @@ function abrirModalProducto(prod) {
 <a id="btn-whatsapp"
    target="_blank"
    class="btn-wsp">
-   Reservar por WhatsApp
+   RESERVAR
 </a>
 
             </div>
@@ -407,14 +419,31 @@ inputCelularTitular.addEventListener('input', function () {
 
 
 
+
+
+
+
 const btnWhatsApp = modal.querySelector('#btn-whatsapp');
-const numero = "3239717041";
+
 
 btnWhatsApp.addEventListener('click', function (e) {
   const nombreProducto = prod.nombre;                 // ES
   const nombreProductoEN = prod.nombreEN || prod.nombre; // EN (fallback a ES si no existe)
   const ciudad = prod.ciudad;
   const tipo = prod.tipo;
+  
+
+
+// ✅ Buscar producto completo (incluyendo número de WhatsApp)
+const productoSeleccionado = productos.find(p => p.nombre === nombreProducto);
+const numeroWhatsApp = limpiarNumero(productoSeleccionado?.whatsapp || '573001112233'); // respaldo
+
+// ✅ Función para limpiar número (remueve espacios y signos)
+function limpiarNumero(numero) {
+  return numero.replace(/\D/g, '');
+}
+
+
 
   const calendario = flatpickrInstance?.selectedDates?.[0];
   const fecha = calendario
@@ -607,6 +636,21 @@ const precioTotal =
   // Mensaje bilingüe:
   // ES usa nombreProducto (español)
   // EN usa nombreProductoEN (inglés) ✅
+
+  
+// 🏷️ Información del cupón de descuento
+const infoCupon = window.cuponAplicado;
+const hayDescuento = !!infoCupon;
+
+const textoDescuentoES = hayDescuento
+  ? `*Cupón aplicado:* ${infoCupon.codigo} (−${infoCupon.porcentaje}%)\n`
+  : '';
+
+const textoDescuentoEN = hayDescuento
+  ? `*Coupon applied:* ${infoCupon.codigo} (−${infoCupon.porcentaje}%)\n`
+  : '';
+
+
   const mensaje =
     `*Hola, quiero reservar en Jexpedition*\n\n` +
     `*${nombreProducto}*\n*${ciudad}* - *${tipo.toUpperCase()}*\n` +
@@ -617,7 +661,8 @@ const precioTotal =
     `*Teléfono:* ${celularTitular}\n` +
     `*Lugar:* ${ubicacionTitular}\n` +
     `*Dirección:* ${direccionTitular}\n\n` +
-    `*Método de pago:* ${metodoPago.charAt(0).toUpperCase() + metodoPago.slice(1)}\n` +
+  `*Método de pago:* ${metodoPago.charAt(0).toUpperCase() + metodoPago.slice(1)}\n` +
+  `${textoDescuentoES}` +
     `*Precio total:* ${precioTotal}\n\n` +
 
     `------------------------------\n\n` +
@@ -631,15 +676,17 @@ const precioTotal =
     `*Phone:* ${celularTitular}\n` +
     `*Location:* ${ubicacionTitular}\n` +
     `*Address:* ${direccionTitular}\n\n` +
-    `*Payment method:* ${pagoTraducido}\n` +
-    `*Total price:* ${precioTotal}\n\n`; +
-
-    `*Envia tu reserva aqui ➡️*\n`+
-    `*Send your reservation here ➡️`
+  `*Payment method:* ${pagoTraducido}\n` +
+  `${textoDescuentoEN}` +
+    `*Total price:* ${precioTotal}\n\n` +
 
 
-    const mensajeWhatsApp = encodeURIComponent(mensaje);
-const url = `https://wa.me/57${numero}?text=${mensajeWhatsApp}`;
+    `*Envia tu reserva aquí ----->*\n` +
+    `*Send your reservation here ----->*`;
+
+
+const mensajeWhatsApp = encodeURIComponent(mensaje);
+const url = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
 const inputCodigo = modal.querySelector('#input-codigo');
 const mensajeCodigo = modal.querySelector('#mensaje-codigo');
@@ -867,7 +914,7 @@ if (pct > 0) {
   const subtotalTxt = `${simbolo} ${formato.format(subtotal)}`;
   const totalTxt = `${simbolo} ${formato.format(totalConDescuento)}`;
   precioTotalEl.innerHTML = `
-    <span class="etiqueta-precio">Precio</span>
+    <span class="etiqueta-precio">Total</span>
     <span class="precio-tachado">${subtotalTxt}</span>
     <span class="precio-grande">${totalTxt}</span>
     <span class="badge-descuento">−${pct}% OFF</span>
