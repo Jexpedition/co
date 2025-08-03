@@ -28,7 +28,7 @@ const productos = [
     ],
     precioCOP: 100000,
     descripcion: "Escápate por un día a las aguas cristalinas de Isla Barú. Transporte, almuerzo y actividades acuáticas incluidas.",
-    whatsapp: "+57 3024345404",
+    whatsapp: "+57 3239717041",
   },
   {
     ciudad: "Santa Marta",
@@ -313,6 +313,41 @@ function abrirModalProducto(prod) {
   <label for="nombre-titular">Nombre completo:</label>
   <input type="text" id="nombre-titular" placeholder="">
 
+
+
+
+
+
+<label for="tipo-documento">Documento de identidad:</label>
+<div class="grupo-documento">
+  <select id="tipo-documento">
+    <option value="" disabled selected>Tipo</option>
+    <option value="CC">C.C. - Cédula de ciudadanía</option>
+    <option value="CE">C.E. - Cédula de extranjería</option>
+    <option value="PA">PA - Pasaporte</option>
+    <option value="TI">T.I. - Tarjeta de identidad</option>
+    <option value="NIT">NIT - Número de identificación tributaria</option>
+  </select>
+
+  <input
+    type="tel"
+    id="numero-documento"
+    placeholder="Número de documento"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    maxlength="20"
+  />
+</div>
+
+
+
+
+
+
+
+
+
+
 <label for="celular-titular">Número de celular:</label>
 <div class="grupo-telefono">
   <select id="codigo-internacional">
@@ -417,33 +452,28 @@ inputCelularTitular.addEventListener('input', function () {
   this.value = this.value.replace(/\D/g, '');
 });
 
-
-
+//validar que sean numeros en el campod de numero de documento
+document.getElementById('numero-documento').addEventListener('input', function (e) {
+  this.value = this.value.replace(/\D/g, ''); // Elimina todo lo que no sea dígito
+});
 
 
 
 
 const btnWhatsApp = modal.querySelector('#btn-whatsapp');
 
-
 btnWhatsApp.addEventListener('click', function (e) {
-  const nombreProducto = prod.nombre;                 // ES
-  const nombreProductoEN = prod.nombreEN || prod.nombre; // EN (fallback a ES si no existe)
+  const nombreProducto = prod.nombre;
+  const nombreProductoEN = prod.nombreEN || prod.nombre;
   const ciudad = prod.ciudad;
   const tipo = prod.tipo;
-  
 
+  const productoSeleccionado = productos.find(p => p.nombre === nombreProducto);
+  const numeroWhatsApp = limpiarNumero(productoSeleccionado?.whatsapp || '573001112233');
 
-// ✅ Buscar producto completo (incluyendo número de WhatsApp)
-const productoSeleccionado = productos.find(p => p.nombre === nombreProducto);
-const numeroWhatsApp = limpiarNumero(productoSeleccionado?.whatsapp || '573001112233'); // respaldo
-
-// ✅ Función para limpiar número (remueve espacios y signos)
-function limpiarNumero(numero) {
-  return numero.replace(/\D/g, '');
-}
-
-
+  function limpiarNumero(numero) {
+    return numero.replace(/\D/g, '');
+  }
 
   const calendario = flatpickrInstance?.selectedDates?.[0];
   const fecha = calendario
@@ -455,7 +485,6 @@ function limpiarNumero(numero) {
   let hayAdultos = false;
   let hayAlMenosUnNombre = false;
 
-  // Limpiar errores visuales anteriores
   modal.querySelectorAll('.shake, .error').forEach(el => el.classList.remove('shake', 'error'));
 
   contadores.forEach(cont => {
@@ -480,8 +509,10 @@ function limpiarNumero(numero) {
     cantidades += `\n`;
   });
 
-  // Obtener datos del titular
   const inputNombreTitular = modal.querySelector('#nombre-titular');
+  const tipoDocumento = modal.querySelector('#tipo-documento');
+  const numeroDocumento = modal.querySelector('#numero-documento');
+
   const inputCelularTitular = modal.querySelector('#celular-titular');
   const inputUbicacionTitular = modal.querySelector('#ubicacion-titular');
   const inputDireccionTitular = modal.querySelector('#direccion-titular');
@@ -495,7 +526,6 @@ function limpiarNumero(numero) {
   const selectMetodoPago = modal.querySelector('#metodo-pago');
   const metodoPago = selectMetodoPago.value;
 
-  // Validaciones
   let valid = true;
 
   if (!hayAdultos) {
@@ -526,6 +556,18 @@ function limpiarNumero(numero) {
     valid = false;
     inputNombreTitular.classList.add('error');
     restartShake(inputNombreTitular);
+  }
+
+  if (!tipoDocumento.value) {
+    valid = false;
+    tipoDocumento.classList.add('error');
+    restartShake(tipoDocumento);
+  }
+
+  if (!numeroDocumento.value.trim() || numeroDocumento.value.trim().length < 4) {
+    valid = false;
+    numeroDocumento.classList.add('error');
+    restartShake(numeroDocumento);
   }
 
   const soloNumerosCelular = celularSinEspacios.replace(/\D/g, '');
@@ -562,28 +604,26 @@ function limpiarNumero(numero) {
     return;
   }
 
-  // Generar mensaje WhatsApp
-const precioTotal =
-  modal.querySelector('#precio-total .precio-grande')?.textContent.trim()
-  || modal.querySelector('#precio-total')?.textContent.trim()
-  || '';
+  let precioTotal =
+    modal.querySelector('#precio-total .precio-grande')?.textContent.trim()
+    || modal.querySelector('#precio-total')?.textContent.trim()
+    || '';
 
+  // Limpia "Total" si aparece antes del precio
+  precioTotal = precioTotal.replace(/^Total\s*/i, '').trim();
 
-  // Traducciones de tipo de producto
   const traduccionesTipo = {
     "Viaje": "Travel",
     "Pasadía": "Day Trip",
     "Tour": "Tour"
   };
 
-  // Traducciones de métodos de pago
   const traduccionesPago = {
     "efectivo": "Cash",
     "transferencia": "Bank Transfer",
     "tarjeta": "Card"
   };
 
-  // Traducciones de los contadores (tal como los escribes en ES en 'cantidades')
   const traduccionesContadores = {
     "Adultos": "Adults",
     "Niños": "Children",
@@ -591,138 +631,104 @@ const precioTotal =
     "Mascotas": "Pets"
   };
 
-  // Helper para reemplazar todas las ocurrencias (compatible con navegadores sin replaceAll)
   function reemplazarTodos(texto, buscar, reemplazo) {
     const re = new RegExp(buscar.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
     return texto.replace(re, reemplazo);
   }
 
-  // Traducción dinámica
   const tipoTraducido = traduccionesTipo[tipo.toLowerCase()] || tipo;
   const pagoTraducido = traduccionesPago[metodoPago.toLowerCase()] || metodoPago;
 
-  // Traducción de cantidades (líneas "Adultos", "Niños", etc.)
   let cantidadesEN = cantidades;
   for (const [es, en] of Object.entries(traduccionesContadores)) {
     cantidadesEN = reemplazarTodos(cantidadesEN, es, en);
   }
 
+  const infoCupon = window.cuponAplicado;
+  const hayDescuento = !!infoCupon;
+
+  const textoDescuentoES = hayDescuento
+    ? `*Cupón aplicado:* ${infoCupon.codigo} (−${infoCupon.porcentaje}%)\n`
+    : '';
+
+  const textoDescuentoEN = hayDescuento
+    ? `*Coupon applied:* ${infoCupon.codigo} (−${infoCupon.porcentaje}%)\n`
+    : '';
+
+
+const refGenerado = localStorage.getItem('codigoReferencia') || '---';
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  // Mensaje bilingüe:
-  // ES usa nombreProducto (español)
-  // EN usa nombreProductoEN (inglés) ✅
-
-  
-// 🏷️ Información del cupón de descuento
-const infoCupon = window.cuponAplicado;
-const hayDescuento = !!infoCupon;
-
-const textoDescuentoES = hayDescuento
-  ? `*Cupón aplicado:* ${infoCupon.codigo} (−${infoCupon.porcentaje}%)\n`
-  : '';
-
-const textoDescuentoEN = hayDescuento
-  ? `*Coupon applied:* ${infoCupon.codigo} (−${infoCupon.porcentaje}%)\n`
-  : '';
 
 
   const mensaje =
-    `*Hola, quiero reservar en Jexpedition*\n\n` +
+    `*Hola, quiero reservar en Jexpedition*\n` +
+    `*Referencia:* ${refGenerado}\n\n`+
     `*${nombreProducto}*\n*${ciudad}* - *${tipo.toUpperCase()}*\n` +
-    `*Fecha:* ${fecha}\n\n` +
+    `*Fecha de reserva:* ${fecha}\n\n` +
     `${cantidades}` +
     `*Datos del titular:*\n` +
     `*Nombre:* ${nombreTitular}\n` +
+    `*Documento:* ${tipoDocumento.value} ${numeroDocumento.value.trim()}\n` +
     `*Teléfono:* ${celularTitular}\n` +
     `*Lugar:* ${ubicacionTitular}\n` +
     `*Dirección:* ${direccionTitular}\n\n` +
-  `*Método de pago:* ${metodoPago.charAt(0).toUpperCase() + metodoPago.slice(1)}\n` +
-  `${textoDescuentoES}` +
+    `*Método de pago:* ${metodoPago.charAt(0).toUpperCase() + metodoPago.slice(1)}\n` +
+    textoDescuentoES +
     `*Precio total:* ${precioTotal}\n\n` +
 
     `------------------------------\n\n` +
 
-    `*Hello, I want to book with Jexpedition*\n\n` +
+    `*Hello, I want to book with Jexpedition*\n` +
+    `*Reference:* ${refGenerado}\n\n`+
     `*${nombreProductoEN}*\n*${ciudad}* - *${tipoTraducido.toUpperCase()}*\n` +
-    `*Date:* ${fecha}\n\n` +
+    `*Reservation date:* ${fecha}\n\n` +
     `${cantidadesEN}` +
     `*Guest info:*\n` +
     `*Name:* ${nombreTitular}\n` +
+    `*ID:* ${tipoDocumento.value} ${numeroDocumento.value.trim()}\n` +
     `*Phone:* ${celularTitular}\n` +
     `*Location:* ${ubicacionTitular}\n` +
     `*Address:* ${direccionTitular}\n\n` +
-  `*Payment method:* ${pagoTraducido}\n` +
-  `${textoDescuentoEN}` +
-    `*Total price:* ${precioTotal}\n\n` +
+    `*Payment method:* ${pagoTraducido}\n` +
+    textoDescuentoEN +
+    `*Total price:* ${precioTotal}\n\n\n` +
 
+    `*Enviar(send) ---------->*`;
 
-    `*Envia tu reserva aquí ----->*\n` +
-    `*Send your reservation here ----->*`;
+  const mensajeWhatsApp = encodeURIComponent(mensaje);
+  const url = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
 
+  const inputCodigo = modal.querySelector('#input-codigo');
+  const mensajeCodigo = modal.querySelector('#mensaje-codigo');
+  const codigoDescuento = inputCodigo?.value.trim() || '';
+  const mensajeDescuento = mensajeCodigo?.textContent?.trim() || '';
 
-const mensajeWhatsApp = encodeURIComponent(mensaje);
-const url = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
-
-const inputCodigo = modal.querySelector('#input-codigo');
-const mensajeCodigo = modal.querySelector('#mensaje-codigo');
-const codigoDescuento = inputCodigo?.value.trim() || '';
-const mensajeDescuento = mensajeCodigo?.textContent?.trim() || '';
-
-// ✅ Abrir la nueva pestaña con todos los datos necesarios
-const ruta = `boleto.html`;
-const parametros = new URLSearchParams({
-  producto: nombreProducto,
-  ciudad,
-  tipo,
-  fecha,
-  cantidades,
-  nombre: nombreTitular,
-  celular: celularTitular,
-  ubicacion: ubicacionTitular,
-  direccion: direccionTitular,
-  pago: metodoPago,
-  precio: precioTotal,
-  codigo: codigoDescuento,
-  mensaje: mensajeDescuento,
-  url // ya viene codificada
-});
-
-
+  const ruta = `boleto.html`;
+  const parametros = new URLSearchParams({
+    producto: nombreProducto,
+    ciudad,
+    tipo,
+    fecha,
+    cantidades,
+    nombre: nombreTitular,
+    celular: celularTitular,
+    ubicacion: ubicacionTitular,
+    direccion: direccionTitular,
+    pago: metodoPago,
+    precio: precioTotal,
+    codigo: codigoDescuento,
+    mensaje: mensajeDescuento,
+    tipoDocumento: tipoDocumento.value,
+    numeroDocumento: numeroDocumento.value.trim(),
+    url
+  });
 
   window.open(`${ruta}?${parametros.toString()}`, '_blank');
-
 });
-
-
-
-
-
-
 
 
 
@@ -837,7 +843,6 @@ const CUPONES = {
   'MULETT20': 20,
   'FERRER20': 20,
   'GAMARRA20': 20,
-  'MAURICIO20': 20,
   'ANONIMOX20': 20,
 };
 

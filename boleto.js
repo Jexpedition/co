@@ -31,7 +31,10 @@ window.addEventListener('DOMContentLoaded', () => {
     .replace(/\*/g, '')
     .replace(/:\s*/g, ': ')
     .replace(/\n/g, '<br>');
+
   const nombre = getParametro('nombre');
+  const tipoDocumento = getParametro('tipoDocumento');
+  const numeroDocumento = getParametro('numeroDocumento');
   const celular = getParametro('celular');
   const ubicacion = getParametro('ubicacion');
   const direccion = getParametro('direccion');
@@ -43,36 +46,33 @@ window.addEventListener('DOMContentLoaded', () => {
   const urlWsp = getParametro('url');
   const moneda = getParametro('moneda') || 'COP';
 
-// ✅ Calcular precio original si aplica
-if (!precioOriginal && codigo && mensaje && precio) {
-  const porcentaje = parseInt(mensaje.match(/-?(\d+)%/)?.[1] || 0);
-  if (porcentaje > 0) {
-    const valorFinal = parseFloat(precio.replace(/[^\d.]/g, ''));
-    const valorOriginal = valorFinal / (1 - (porcentaje / 100));
+  // ✅ Calcular precio original si aplica
+  if (!precioOriginal && codigo && mensaje && precio) {
+    const porcentaje = parseInt(mensaje.match(/-?(\d+)%/)?.[1] || 0);
+    if (porcentaje > 0) {
+      const valorFinal = parseFloat(precio.replace(/[^\d.]/g, ''));
+      const valorOriginal = valorFinal / (1 - (porcentaje / 100));
 
-    const formateador = new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: moneda,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 2
-    });
+      const formateador = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: moneda,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
 
-    precioOriginal = formateador.format(valorOriginal);
+      precioOriginal = formateador.format(valorOriginal);
+    }
   }
-}
-
-
 
   const area = document.getElementById('area-resumen');
   area.innerHTML = `
     <div class="campo"><span class="label">Producto:</span> <span class="valor">${producto} - ${ciudad} - ${tipo}</span></div>
-
     <div class="campo"><span class="label">Fecha a reservar:</span> <span class="valor">${fecha}</span></div>
     <div class="campo"><span class="label">Participantes:</span><span class="valor">${cantidades}</span></div>
     <div class="campo"><span class="label">Nombre Titular:</span> <span class="valor">${nombre}</span></div>
+    <div class="campo"><span class="label">Documento:</span> <span class="valor">${tipoDocumento} ${numeroDocumento}</span></div>
     <div class="campo"><span class="label">Teléfono:</span> <span class="valor">${celular}</span></div>
     <div class="campo"><span class="label">Ubicación:</span> <span class="valor">${ubicacion} - ${direccion}</span></div>
-
     <div class="campo"><span class="label">Método de pago:</span> <span class="valor">${pago}</span></div>
     ${codigo ? `
       <div class="campo">
@@ -85,9 +85,9 @@ if (!precioOriginal && codigo && mensaje && precio) {
         <strong class="precio-final">${precio}</strong>
       </span>
     </div>
-  <div id="seccion-acciones" class="campo qr-container">
-    <div id="qr-ref"></div>
-  </div>
+    <div id="seccion-acciones" class="campo qr-container">
+      <div id="qr-ref"></div>
+    </div>
   `;
 
   // ✅ Mostrar referencia si hay contenedor adicional
@@ -119,11 +119,8 @@ if (!precioOriginal && codigo && mensaje && precio) {
     btnWsp.href = urlWsp;
     btnWsp.style.pointerEvents = 'auto';
     btnWsp.style.opacity = '1';
-}
+  }
 });
-
-
-
 
 // ✅ Descargar PDF
 async function descargarPDF() {
@@ -155,5 +152,3 @@ async function descargarPDF() {
   pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
   pdf.save(`Boleto_${refGenerado}.pdf`);
 }
-
-

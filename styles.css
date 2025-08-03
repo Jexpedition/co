@@ -985,28 +985,82 @@ cursor: pointer;
   margin-top: 6px;
 }
 
-.datos-titular .grupo-telefono select {
-  width: 28%;
-  flex-shrink: 0;
+
+
+
+.datos-titular .grupo-documento {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
 }
 
-
-.datos-titular .grupo-telefono select {
-  width: 28%;
-  padding: 8px 12px;
-  font-size: 0.95rem;
+.datos-titular .grupo-documento select {
+  flex: 0 0 35%;
+  padding: 12px 16px;
+  border-radius: 28px;
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  background: linear-gradient(to right, #ffffff, #f9f9f9);
-  color: #333;
-  appearance: none; /* Oculta la flecha predeterminada en algunos navegadores */
+  appearance: none;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='gray'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M1.5%205l6%206%206-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-position: right 16px center;
   background-size: 12px;
   cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
+
+.datos-titular .grupo-documento input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 28px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+
+
+
+
+.datos-titular .grupo-telefono select {
+  display: block;
+  width: 100%; /* Puedes ajustar si lo necesitas más angosto */
+  padding: 12px 16px;
+  margin: 8px auto 0 auto;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 28px;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='gray'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M1.5%205l6%206%206-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.datos-titular #metodo-pago {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  margin: 8px auto 0 auto;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 28px;
+  color: #333;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='gray'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M1.5%205l6%206%206-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
 
 
 
