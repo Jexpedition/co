@@ -139,6 +139,8 @@ const productos = [
 
 
 
+// Guardar los productos para que boleto.js los pueda usar
+localStorage.setItem('productosDisponibles', JSON.stringify(productos));
 
 
 
@@ -708,24 +710,35 @@ const refGenerado = localStorage.getItem('codigoReferencia') || '---';
   const mensajeDescuento = mensajeCodigo?.textContent?.trim() || '';
 
   const ruta = `boleto.html`;
-  const parametros = new URLSearchParams({
-    producto: nombreProducto,
-    ciudad,
-    tipo,
-    fecha,
-    cantidades,
-    nombre: nombreTitular,
-    celular: celularTitular,
-    ubicacion: ubicacionTitular,
-    direccion: direccionTitular,
-    pago: metodoPago,
-    precio: precioTotal,
-    codigo: codigoDescuento,
-    mensaje: mensajeDescuento,
-    tipoDocumento: tipoDocumento.value,
-    numeroDocumento: numeroDocumento.value.trim(),
-    url
-  });
+const parametros = new URLSearchParams({
+  producto: nombreProducto,
+  ciudad,
+  tipo,
+  fecha,
+  cantidades,
+  nombre: nombreTitular,
+  celular: celularTitular,
+  ubicacion: ubicacionTitular,
+  direccion: direccionTitular,
+  pago: metodoPago,
+  precio: precioTotal,
+  codigo: codigoDescuento,
+  mensaje: mensajeDescuento,
+  tipoDocumento: tipoDocumento.value,
+  numeroDocumento: numeroDocumento.value.trim(),
+  moneda: localStorage.getItem('monedaSeleccionada') || 'COP', // ✅ ¡AQUÍ LA CLAVE!
+  url
+});
+
+
+
+
+
+
+
+
+
+
 
   window.open(`${ruta}?${parametros.toString()}`, '_blank');
 });
@@ -1614,6 +1627,14 @@ async function cargarCodigosInternacionales() {
     select.innerHTML = `<option>Error al cargar códigos</option>`;
   }
 }
+
+
+
+
+
+
+
+
 
 
 
