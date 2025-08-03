@@ -113,17 +113,17 @@ window.addEventListener('DOMContentLoaded', () => {
     acciones.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // ✅ Activar WhatsApp
-  const btnWsp = document.getElementById('btn-wsp');
+// ✅ Activar WhatsApp
+const btnWsp = document.getElementById('btn-wsp');
 if (btnWsp && urlWsp) {
   btnWsp.style.pointerEvents = 'auto';
   btnWsp.style.opacity = '1';
 
-  btnWsp.addEventListener('click', async (e) => {
-    e.preventDefault(); // Evita que se abra WhatsApp antes de tiempo
+  btnWsp.addEventListener('click', (e) => {
+    e.preventDefault(); // Evita que se abra por defecto
 
-    await enviarDatosASheets(); // Envía primero los datos
-    window.open(urlWsp, '_blank'); // Luego abre WhatsApp
+    enviarDatosASheets();         // 🔁 Se envía en segundo plano (sin bloquear)
+    window.open(urlWsp, '_blank'); // ✅ WhatsApp se abre inmediatamente
   });
 }
 
