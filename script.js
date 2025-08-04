@@ -471,7 +471,7 @@ btnWhatsApp.addEventListener('click', function (e) {
   const tipo = prod.tipo;
 
   const productoSeleccionado = productos.find(p => p.nombre === nombreProducto);
-  const numeroWhatsApp = limpiarNumero(productoSeleccionado?.whatsapp || '573001112233');
+  const numeroWhatsApp = limpiarNumero(productoSeleccionado?.whatsapp || '573239717041');
 
   function limpiarNumero(numero) {
     return numero.replace(/\D/g, '');
@@ -852,12 +852,14 @@ if (!document.getElementById('visor-imagenes')) {
 
 // ====== CUPONES ======
 const CUPONES = {
-  'VARGAS20': 20,
-  'MULETT20': 20,
-  'FERRER20': 20,
-  'GAMARRA20': 20,
-  'ANONIMOX20': 20,
+  'XXXXANONIMO0.2': 20,
+  '1043RAMOS0.2':   20,
+  '1006CHICO0.2':   20,
+  '1002GAMARRA0.2': 20,
+  '1041MENDOZA0.2': 20,
+  '1002PUERTA0.2': 20,
 };
+
 
 window.cuponAplicado = null;
 
