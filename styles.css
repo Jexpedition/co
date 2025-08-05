@@ -42,109 +42,106 @@ header {
 
 
 
-/* Estilos básicos para el panel */
+/* Fondo oscuro semitransparente */
 .panel-menu {
+  display: none; /* oculto por defecto */
   position: fixed;
   top: 0;
-  right: 0; /* Cambiar para iniciar desde la derecha */
-  width: 100%; /* Definir el tamaño del panel (ajustable según lo que desees) */
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
-  display: none; /* Inicialmente está oculto */
-  justify-content: flex-start; /* Alineamos el contenido al inicio */
-  align-items: flex-start; /* Alineamos al inicio para que se vea bien */
-  z-index: 1001;
-  overflow-y: auto; /* Si el contenido es largo, permite scroll */
-}
-
-/* Estilo para la ventana del contenido del panel */
-.contenido-panel {
-  background-color: #fff;
+  left: 0;
   width: 100%;
   height: 100%;
-  padding: 30px;
-  border-radius: 0;
-  box-shadow: none;
-  overflow-y: auto;
-  position: relative; /* Para que el botón de cerrar se posicione correctamente */
+  background: rgba(0, 0, 0, 0.5); /* fondo translúcido */
+  z-index: 9999;
+  justify-content: flex-end; /* PC: contenido a la derecha */
+  align-items: flex-start;    /* parte superior */
+  padding: 2rem;
 }
 
-/* Animación moderna de deslizamiento */
-@keyframes slideInRight {
+/* Contenido del modal */
+.panel-menu .contenido-panel {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: fadeInDown 0.3s ease-out;
+  position: relative;
+  right: 70px;
+  top: 40px;
+}
+
+
+.imagen-colaborador {
+  width: 20%;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+
+
+/* Animación */
+@keyframes fadeInDown {
   from {
-    transform: translateX(100%);
     opacity: 0;
+    transform: translateY(-30px);
   }
   to {
-    transform: translateX(0%);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.panel-menu .contenido-panel {
-  animation: slideInRight 0.4s ease-out;
-  background: #ffffff;
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-  min-height: 100vh;
-  position: relative;
-}
-
-/* Sección de colaborador con estilo más vibrante */
-.colaborador {
-  background: linear-gradient(135deg, #f1fdf5, #e0f5ea);
-  border-left: 6px solid #28a745;
-  padding: 1.5rem;
-  margin-top: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.1);
-}
-
-.colaborador h3 {
-  margin-top: 0;
-  color: #28a745;
-  font-size: 1.3rem;
-}
-
-.colaborador p {
-  font-size: 0.95rem;
-  margin: 0.75rem 0 1.25rem 0;
-  color: #333;
-}
-
-/* Botón llamativo */
-.btn-colaborador {
-  display: inline-block;
-  padding: 0.6rem 1.2rem;
-  background: linear-gradient(135deg, #28a745, #34c759);
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.25);
-}
-
-.btn-colaborador:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(40, 167, 69, 0.35);
-}
-
-/* Botón de cerrar con estilo más suave */
+/* Botón cerrar */
 .cerrar {
-  font-size: 32px;
+  font-size: 24px;
   cursor: pointer;
   position: absolute;
-  top: 20px;
-  right: 24px;
-  color: #999;
-  transition: color 0.2s ease, transform 0.2s ease;
+  top: 12px;
+  right: 16px;
+  color: #888;
+  transition: color 0.2s ease;
 }
-
 .cerrar:hover {
   color: #000;
-  transform: scale(1.2);
+}
+
+
+/* Botón atractivo en tonos naranja-amarillo */
+.btn-colaborador {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #ff9500, #ffc400); /* naranja -> amarillo dorado */
+  color: #ffffff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 149, 0, 0.35);
+}
+.btn-colaborador:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 149, 0, 0.5);
+}
+
+/* ✅ Responsivo para móviles */
+@media (max-width: 768px) {
+  .panel-menu {
+    justify-content: center;     /* centrar horizontalmente */
+    align-items: flex-start;     /* parte superior */
+    padding: 1rem;
+  }
+
+  .panel-menu .contenido-panel {
+        max-width: 85%;
+        margin-top: 1.5rem;
+        border-radius: 12px;
+        position: relative;
+        left: -15px;
+  }
 }
 
 
