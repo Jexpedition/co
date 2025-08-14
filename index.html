@@ -15,11 +15,16 @@
 <!-- HERO + BUSCADOR UNIFICADO (versión sencilla, sin div envolvente) -->
 <section id="hero-jexp">
   <div class="hero-simple-header">
-        <!-- Logo para pantallas grandes -->
-    <img src="logos/logo.png" alt="Jexpedition logo" class="hero-logo hero-logo-lg" />
+<!-- Logo para pantallas grandes -->
+<img src="logos/logo.png" alt="Jexpedition logo" 
+     class="hero-logo hero-logo-lg" 
+     onclick="location.reload()" />
 
-    <!-- Logo para pantallas pequeñas -->
-    <img src="logos/logosimple.png" alt="Jexpedition logo" class="hero-logo hero-logo-sm" />
+<!-- Logo para pantallas pequeñas -->
+<img src="logos/logosimple.png" alt="Jexpedition logo" 
+     class="hero-logo hero-logo-sm" 
+     onclick="location.reload()" />
+
 
 
 
@@ -40,6 +45,10 @@
 <div id="panelMenu" class="panel-menu">
   <div class="contenido-panel">
     <span class="cerrar" onclick="cerrarMenu()">&times;</span>
+
+
+
+
 
 
      <img src="iconos/verificado.png" alt="Imagen colaborador" class="imagen-colaborador">
@@ -110,13 +119,12 @@ Quiero ser colaborador
 <div id="barra-fija">
   <form id="buscador-sticky" class="hero-buscador" onsubmit="buscarActividades(); return false;">
     <div class="buscador-contenedor">
-      <input type="text" id="search" placeholder="¿A dónde quieres ir?" autocomplete="off" />
+      <input type="text" id="search" placeholder="¿Qué buscas?" autocomplete="off" />
       <button id="buscar-btn" type="submit" aria-label="Buscar">
         <img src="iconos/buscar.png" alt="buscar">
       </button>
     </div>
   </form>
-
   <div class="hero-categorias">
     <button onclick="filtrarPorCategoria('Viaje')" class="cat-btn">
       <img src="iconos/viaje.png" alt="" class="cat-icon" />
@@ -130,7 +138,19 @@ Quiero ser colaborador
       <img src="iconos/tours.png" alt="" class="cat-icon" />
       Tours
     </button>
+
+    
   </div>
+  <!-- Selector de orden -->
+<div class="orden-precio-contenedor">
+<select id="orden-precio" onchange="ordenarPorPrecio(this.value)">
+    <option value="">Ordena por</option>
+    <option value="asc">Precio más bajo</option>
+    <option value="desc">Precio más alto</option>
+  </select>
+</div>
+
+
 </div>
 
 

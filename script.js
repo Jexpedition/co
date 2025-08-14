@@ -1,140 +1,38 @@
 // ✅ Definición de productos turísticos
 const productos = [
   {
-    ciudad: "San Andrés",
-    nombre: "Viaje completo 4 días",
-    nombreEN: "Complete 4 day Trip",   //ingles
-    tipo: "Viaje",
-    imagen: "img/sanandres.jpg",
-    imagenes: [
-      "img/sanandres.jpg",
-      "img/sanandres2.jpg",
-      "img/sanandres3.jpg"
-    ],
-    precioCOP: 100000,
-    descripcion: "Disfruta de 4 días inolvidables en las playas paradisíacas de San Andrés. Todo incluido: vuelos, hotel, alimentación y tours.",
+    ciudad: "Cartagena",
+    nombre: "Playa Blanca",
+    nombreEN: "White Beach",   //ingles
+    tipo: "Pasadía",
+    carpetaImagenes: "img/AVENTURAS/1. BARU/1. PLAYA BLANCA X TIERRA CON ALMUERZO",
+    totalImagenes: 6,
+    precioCOP: 87500,
+    descripcion: "Disfruta de un día inolvidable en las playas paradisíacas de Playa Blanca. Todo incluido: transporte, almuerzo y actividades acuáticas.",
     whatsapp: "+57 3239717041",
   },
   {
     ciudad: "Cartagena",
-    nombre: "Pasadía en Isla Barú",
-    nombreEN: "Day trip to Isla Barú",   //ingles
+    nombre: "Playa Blanca + Islas",
+    nombreEN: "Playa Blanca + Islands",   //ingles
     tipo: "Pasadía",
-    imagen: "img/baru.jpg",
-    imagenes: [
-      "img/baru.jpg",
-      "img/baru2.jpg",
-      "img/baru3.jpg"
-    ],
-    precioCOP: 100000,
+    carpetaImagenes: "img/AVENTURAS/1. BARU/2. BARÚ PLAYA BLANCA + ISLAS X TIERRA",
+    totalImagenes: 5,
+    precioCOP: 150000,
     descripcion: "Escápate por un día a las aguas cristalinas de Isla Barú. Transporte, almuerzo y actividades acuáticas incluidas.",
     whatsapp: "+57 3239717041",
   },
   {
-    ciudad: "Santa Marta",
-    nombre: "Tour a Ciudad Perdida",
-    nombreEN: "Tour to Lost City",   //ingles
+    ciudad: "Cartagena",
+    nombre: "Playa Tranquila + Bajo de la Tortuga",
+    nombreEN: "Quiet Beach + Turtle Bay",   //ingles
     tipo: "Tour",
-    imagen: "img/santamarta.jpg",
-    imagenes: [
-      "img/santamarta.jpg",
-      "img/santamarta2.jpg",
-      "img/santamarta3.jpg"
-    ],
-    precioCOP: 800000,
+    carpetaImagenes: "img/AVENTURAS/1. BARU/3. BARÚ PLAYA TRANQUILA + BAJO DE LA TORTUGA",
+    totalImagenes: 6,
+    precioCOP: 187500,
     descripcion: "Aventura de varios días en la Sierra Nevada hasta Ciudad Perdida, una experiencia mágica llena de historia y naturaleza.",
     whatsapp: "+57 3239717041",
   },
-  {
-  ciudad: "San Andrés",
-  nombre: "Tour Acuático en Johnny Cay",
-  nombreEN: "Johnny Cay Water Tour",   //ingles
-  tipo: "Tour",
-  imagen: "img/sanandres2.jpg",
-  imagenes: [
-    "img/sanandres2.jpg",
-    "img/sanandres3.jpg",
-    "img/sanandres.jpg"
-  ],
-  precioCOP: 150000,
-  descripcion: "Explora Johnny Cay con guía local, disfruta de playas cristalinas, snorkeling y almuerzo típico isleño.",
-  whatsapp: "+57 3239717041",
-},
-{
-  ciudad: "Cartagena",
-  nombre: "Recorrido en Chiva Rumbera",
-  nombreEN: "Chiva Rumbera Tour",   //ingles
-  tipo: "Pasadía",
-  imagen: "img/baru2.jpg",
-  imagenes: [
-    "img/baru2.jpg",
-    "img/baru.jpg",
-    "img/baru3.jpg"
-  ],
-  precioCOP: 70000,
-  descripcion: "Vive la fiesta cartagenera en una chiva rumbera con música, bebidas, y paradas por sitios emblemáticos.",
-  whatsapp: "+57 3239717041",
-},
-{
-  ciudad: "Santa Marta",
-  nombre: "Día de Playa en Bahía Concha",
-  nombreEN: "Beach Day in Bahia Concha",   //ingles
-  tipo: "Pasadía",
-  imagen: "img/santamarta2.jpg",
-  imagenes: [
-    "img/santamarta2.jpg",
-    "img/santamarta.jpg",
-    "img/santamarta3.jpg"
-  ],
-  precioCOP: 85000,
-  descripcion: "Relájate en Bahía Concha, una joya del Parque Tayrona. Transporte, entrada y refrigerio incluidos.",
-  whatsapp: "+57 3239717041",
-},
-{
-  ciudad: "Cartagena",
-  nombre: "Crucero al atardecer con cena",
-  nombreEN: "Sunset Dinner Cruise",   //ingles
-  tipo: "Viaje",
-  imagen: "img/baru3.jpg",
-  imagenes: [
-    "img/baru3.jpg",
-    "img/baru.jpg",
-    "img/baru2.jpg"
-  ],
-  precioCOP: 180000,
-  descripcion: "Navega por la bahía de Cartagena al atardecer mientras disfrutas de una cena gourmet a bordo.",
-  whatsapp: "+57 3239717041",
-},
-{
-  ciudad: "Santa Marta",
-  nombre: "Tour indígena en Sierra Nevada",
-  nombreEN: "Indigenous tour in Sierra Nevada",   //ingles
-  tipo: "Tour",
-  imagen: "img/santamarta3.jpg",
-  imagenes: [
-    "img/santamarta3.jpg",
-    "img/santamarta2.jpg",
-    "img/santamarta.jpg"
-  ],
-  precioCOP: 250000,
-  descripcion: "Adéntrate en la cultura indígena Wiwa en una experiencia única de aprendizaje y conexión con la naturaleza.",
-  whatsapp: "+57 3239717041",
-},
-{
-  ciudad: "San Andrés",
-  nombre: "Buceo en arrecifes coralinos",
-  nombreEN: "Diving in coral reefs",   //ingles
-  tipo: "Pasadía",
-  imagen: "img/sanandres3.jpg",
-  imagenes: [
-    "img/sanandres3.jpg",
-    "img/sanandres.jpg",
-    "img/sanandres2.jpg"
-  ],
-  precioCOP: 220000,
-  descripcion: "Explora el increíble ecosistema submarino de San Andrés con todo el equipo incluido y guía profesional.",
-  whatsapp: "+57 3239717041",
-},
 ];
 
 
@@ -143,6 +41,18 @@ const productos = [
 localStorage.setItem('productosDisponibles', JSON.stringify(productos));
 
 
+let productosFiltrados = [...productos]; // siempre refleja lo que se está mostrando
+
+
+productos.forEach(p => {
+  if (p.carpetaImagenes && p.totalImagenes) {
+    p.imagenes = [];
+    for (let i = 1; i <= p.totalImagenes; i++) {
+      p.imagenes.push(`${p.carpetaImagenes}/${i}.jpg`);
+    }
+    p.imagen = p.imagenes[0]; // la primera como portada
+  }
+});
 
 
 // Función para abrir el panel
@@ -186,6 +96,36 @@ function cerrarModalIdiomaMoneda() {
     document.body.classList.remove('body-no-scroll'); // ✅ vuelve a activar scroll
   }
 }
+
+
+
+function abrirModal() {
+  document.querySelector('.modal-overlay').classList.add('activo');
+  document.body.classList.add('body-no-scroll');
+}
+
+function cerrarModal() {
+  document.querySelector('.modal-overlay').classList.remove('activo');
+  document.body.classList.remove('body-no-scroll');
+}
+
+
+
+
+window.ordenarPorPrecio = function() {
+  const orden = document.getElementById('orden-precio').value;
+  let listaOrdenada = [...productosFiltrados]; // usamos la lista filtrada
+
+  if (orden === 'asc') {
+    listaOrdenada.sort((a, b) => a.precioCOP - b.precioCOP);
+  } else if (orden === 'desc') {
+    listaOrdenada.sort((a, b) => b.precioCOP - a.precioCOP);
+  }
+
+  mostrarProductos(listaOrdenada);
+};
+
+
 
 
 // ✅ Agrega evento para abrir modal desde botón o ícono
@@ -245,6 +185,7 @@ function abrirModalProducto(prod) {
   document.body.classList.add('body-no-scroll');
 
   modal.innerHTML = `
+  <div class="modal-overlay">
     <div class="contenido-modal">
       <div class="barra-superior-modal">
         <img src="iconos/volver.png" alt="Cerrar" class="icono-cerrar" onclick="cerrarModalProducto(this)">
@@ -268,9 +209,13 @@ function abrirModalProducto(prod) {
 
       <h2 id="productomodal">${prod.nombre}</h2>
       <p id="ciudad"><strong>${prod.ciudad}</strong> - ${prod.tipo.toUpperCase()}</p>
-      <span id="precio">${precioTexto}</span>
+<span id="precio">${precioTexto}</span>
+<div class="precio-detalle">Por persona</div>
 
-      <p class="descripcion-producto">${prod.descripcion}</p>
+
+<h4 class="titulo-descripcion">Descripción</h4>
+<p class="descripcion-producto">${prod.descripcion}</p>
+
 
 
 <p id="selecciona-tu-fecha"><strong>Selecciona tu fecha de reserva</strong></p>
@@ -411,7 +356,7 @@ function abrirModalProducto(prod) {
 <a id="btn-whatsapp"
    target="_blank"
    class="btn-wsp">
-   RESERVAR
+   Reservar ahora
 </a>
 
             </div>
@@ -419,6 +364,8 @@ function abrirModalProducto(prod) {
         </div>
       </div>
     </div>
+        </div>
+
   `;
 
 document.body.appendChild(modal);
@@ -911,7 +858,7 @@ function initCuponDescuento(scope = document) {
     // Personas SIN mascotas
     const totalPersonas = Array.from(scope.querySelectorAll('.contador')).reduce((sum, cont) => {
       const tipo = cont.dataset.tipo;
-      if (tipo === 'mascotas') return sum;
+      if (tipo === 'mascotas' || tipo === 'bebés') return sum;
       const cant = parseInt(cont.querySelector('.valor')?.textContent || '0', 10);
       return sum + (isNaN(cant) ? 0 : cant);
     }, 0);
@@ -1124,7 +1071,7 @@ function actualizarPrecioTotal() {
   // Sumar solo adultos, niños y bebés (excluye mascotas)
   const totalPersonas = Array.from(document.querySelectorAll('.contador')).reduce((sum, cont) => {
     const tipo = cont.dataset.tipo;
-    if (tipo === 'mascotas') return sum; // 👈 Ignoramos mascotas
+    if (tipo === 'mascotas' || tipo === 'bebés') return sum; // 👈 Ignoramos mascotas y bebés
     const cantidad = parseInt(cont.querySelector('.valor')?.textContent || '0');
     return sum + cantidad;
   }, 0);
@@ -1167,6 +1114,7 @@ function actualizarPrecioTotal() {
 
 
 function mostrarProductos(lista) {
+  productosFiltrados = [...lista]; // guardamos lo que se está mostrando
   const contenedor = document.getElementById("lista-productos");
   contenedor.innerHTML = "";
 
@@ -1182,11 +1130,21 @@ function mostrarProductos(lista) {
       <img src="${p.imagen}" alt="${p.nombre}" class="producto-img" />
       <div class="info">
         <h3 class="producto-nombre">${p.nombre}</h3>
-        <p class="producto-ciudad"><strong>${p.ciudad}</strong></p>
-        <p class="producto-tipo">${p.tipo.charAt(0).toUpperCase() + p.tipo.slice(1)}</p>
-        <p class="precio" data-precio-base="${p.precioCOP}"><strong>${precioTexto}</strong></p>
+        <p class="producto-ubicacion">
+          <strong class="producto-ciudad">${p.ciudad} - </strong>
+          <span class="producto-tipo">${p.tipo.charAt(0).toUpperCase() + p.tipo.slice(1)}</span>
+        </p>
+        <div class="precio-reserva">
+          <div>
+            <p class="precio" data-precio-base="${p.precioCOP}">
+              <strong>${precioTexto}</strong>
+            </p>
+            <small class="precio-detalle">Por persona</small>
+          </div>
+        </div>
       </div>
     `;
+
     card.onclick = () => abrirModalProducto(p);
     contenedor.appendChild(card);
     setTimeout(() => card.classList.add("visible"), 100);
@@ -1194,6 +1152,7 @@ function mostrarProductos(lista) {
 
   actualizarPrecios();
 }
+
 
 function actualizarPrecios() {
   document.querySelectorAll('[data-precio-base]').forEach(el => {
@@ -1283,10 +1242,13 @@ window.buscarActividades = function() {
   mostrarProductos(resultado);
 };
 
+
 window.filtrarPorCategoria = function(tipo) {
   document.getElementById("search").value = '';
-  mostrarProductos(productos.filter(p => p.tipo === tipo));
+  const filtrados = productos.filter(p => p.tipo === tipo);
+  mostrarProductos(filtrados);
 };
+
 
 window.addEventListener('DOMContentLoaded', () => {
   const inputFecha = document.getElementById("fecha");
@@ -1574,6 +1536,25 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
+
+
+
+
+// Función para ordenar productos por precio
+function ordenarPorPrecio(tipo) {
+  if (!tipo) return;
+
+  let listaOrdenada = [...productosFiltrados.length ? productosFiltrados : productos];
+
+  if (tipo === 'asc') {
+    listaOrdenada.sort((a, b) => a.precioCOP - b.precioCOP);
+  } else if (tipo === 'desc') {
+    listaOrdenada.sort((a, b) => b.precioCOP - a.precioCOP);
+  }
+
+  mostrarProductos(listaOrdenada);
+}
 
 
 
