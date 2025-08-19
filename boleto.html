@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boleto de Reserva</title>
+  <link rel="icon" type="image/png" href="logos/logoinicio.png">
+  <link rel="stylesheet" href="estilos-boleto.css" />
+</head>
+<body>
+
+  <div class="wrapper">
+    <section class="boleto" id="area-boleto">
+      <div class="top">
+       <img src="logos/logosimple.png" alt="Jexpedition" class="hero-logo hero-logo-sm" />
+      <div class="ref" id="ref-id">Ref: </div>
+      </div>
+      <div class="info" id="area-resumen"></div>
+      <div class="footer">
+        <p>Gracias por elegir <strong>Jexpedition</strong></p>
+      </div>
+    </section>
+
+<div id="seccion-acciones" class="acciones">
+  <p>Antes de enviar el mensaje a whatsapp recuerda guardar este boleto</p>
+  <button onclick="descargarPDF()">Descargar boleto</button>
+  <a id="btn-wsp"  target="_blank">Enviar reserva a WhatsApp</a>
+</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script src="boleto.js"></script>
+</body>
+</html>

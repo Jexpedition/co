@@ -1,0 +1,236 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #e9eff4;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.hero-logo {
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 10px;
+}
+
+.top img.hero-logo {
+  margin-right: auto;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boleto {
+  margin-top: 20px;
+  width: 1056px;
+  /* height: 816px; ❌ Eliminar esta línea */
+  min-height: 816px; /* ✅ Asegura una altura mínima */
+  background: white;
+  border-radius: 12px;
+  padding: 24px 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px dashed #ccc;
+  padding-bottom: 8px; /* 🧩 Reducido */
+}
+
+.logo {
+  font-size: 24px; /* 🧩 Ligero ajuste */
+  font-weight: bold;
+  color: #0b5ed7;
+}
+
+.ref {
+  font-family: monospace;
+  font-size: 13px;
+  color: #555;
+}
+
+.info {
+  display: grid;
+  color: green;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px 16px; /* 🧩 Menos espacio entre campos */
+  font-size: 13px;
+  padding: 10px 0; /* 🧩 Reducido */
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1px; /* 🧩 Más compacto */
+}
+
+.precio-original {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-right: 0.5rem;
+}
+
+.precio-final {
+  font-weight: bold;
+}
+
+
+.label {
+  text-transform: uppercase;
+  font-size: 10px; /* 🧩 Más compacto */
+  font-weight: bold;
+  color: #000000;
+}
+
+.valor {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+
+}
+
+
+
+.boleto {
+  position: relative; /* necesario para ubicar .qr-container absolutamente dentro de él */
+}
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Pantallas grandes: QR fijo abajo a la derecha */
+@media (min-width: 768px) {
+  .qr-container {
+    position: absolute;
+    bottom: 6rem;
+    right: 4rem;
+    align-items: flex-end;
+    text-align: right;
+    margin-top: 0; /* quita el margen para que no afecte el layout */
+  }
+}
+
+.qr-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+
+
+.footer {
+  text-align: center;
+  font-size: 13px;
+  border-top: 2px dashed #ccc;
+  padding-top: 10px; /* 🧩 Más compacto */
+  color: #ff8800;
+  font-weight: bold;
+}
+
+.acciones {
+  text-align: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.acciones p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.acciones button,
+.acciones a {
+  display: inline-block;
+  padding: 12px 22px;
+  margin: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.acciones button {
+  background-color: #0b5ed7;
+  color: white;
+}
+
+.acciones a {
+  background-color: #25D366;
+  color: white;
+}
+
+.acciones button:hover {
+  background-color: #094bb5;
+}
+
+.acciones a:hover {
+  background-color: #1ebe57;
+}
+
+/* 🔒 Estilo cuando el botón de WhatsApp está deshabilitado */
+.acciones a.deshabilitado {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #9be5bb; /* tono más claro para indicar inactividad */
+}
+
+/* 📱 Escalado en móviles */
+@media (max-width: 768px) {
+  .boleto {
+    margin-top: 16px;
+    width: 100vw;
+    height: auto;
+    padding: 16px 24px;
+    transform: scale(0.95);
+    transform-origin: top center;
+  }
+
+  .info {
+    grid-template-columns: 1fr;
+    gap: 2px 0;
+  }
+
+  .acciones {
+    transform: scale(0.95);
+    margin-top: 10px;
+  }
+}
+
+
+
+
