@@ -1028,8 +1028,6 @@ ${prod.restringidos ? `
   <input type="tel" id="celular-titular" placeholder="Numero telefonico" />
 </div>
 
-
-
   <label for="ubicacion-titular">Lugar donde se encuentra:</label>
   <input type="text" id="ubicacion-titular" placeholder="Ciudad o región">
 
@@ -1137,6 +1135,40 @@ document.getElementById('numero-documento').addEventListener('input', function (
 const btnWhatsApp = modal.querySelector('#btn-whatsapp');
 
 btnWhatsApp.addEventListener('click', function (e) {
+  // Validar que todos los campos de texto estén llenos para todos los contadores
+  const contadoresValidacion = modal.querySelectorAll('.contador');
+  let camposIncompletos = false;
+  let primerCampoIncompleto = null;
+
+  contadoresValidacion.forEach(contador => {
+    const valor = parseInt(contador.querySelector('.valor').textContent, 10);
+    const camposNombres = contador.querySelectorAll('.campos-nombres input');
+
+    if (valor > 0) {
+      const camposLlenos = Array.from(camposNombres).filter(input => input.value.trim() !== '').length;
+      if (camposLlenos < valor) {
+        camposIncompletos = true;
+        contador.querySelectorAll('.campos-nombres input').forEach(input => {
+          if (input.value.trim() === '') {
+            input.classList.add('error', 'shake');
+            if (!primerCampoIncompleto) primerCampoIncompleto = input;
+          }
+        });
+      }
+    }
+  });
+
+  if (camposIncompletos) {
+    e.preventDefault();
+    if (primerCampoIncompleto && !isElementInViewport(primerCampoIncompleto)) {
+      primerCampoIncompleto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    setTimeout(() => {
+      modal.querySelectorAll('.shake').forEach(el => el.classList.remove('shake'));
+    }, 1000); // Elimina la animación después de 1 segundo
+    return;
+  }
+
   const nombreProducto = prod.nombre;
   const nombreProductoEN = prod.nombreEN || prod.nombre;
   const ciudad = prod.ciudad;
@@ -1448,7 +1480,6 @@ function restartShake(element) {
   }, 1000); // 500ms es el tiempo de la animación
 }
 
-
 // Función para verificar si el elemento está visible en el viewport
 function isElementInViewport(el) {
   const rect = el.getBoundingClientRect();
@@ -1556,6 +1587,27 @@ function initCuponDescuento(scope = document) {
   btn.addEventListener('click', () => aplicarCupon());
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') aplicarCupon(); });
 
+  // Monitorea cambios en el campo de entrada
+  input.addEventListener('input', () => {
+    const codigo = (input.value || '').trim().toUpperCase();
+    if (!codigo) {
+      window.cuponAplicado = null;
+      mostrarMsg('Ingresa un código de promoción.', 'warn');
+      recalcularConDescuento(); // Quita descuento si había
+      return;
+    }
+    const porcentaje = CUPONES[codigo];
+    if (!porcentaje) {
+      window.cuponAplicado = null;
+      mostrarMsg('Código inválido o vencido.', 'error');
+      recalcularConDescuento(); // Quita descuento si había
+      return;
+    }
+    window.cuponAplicado = { codigo, porcentaje };
+    mostrarMsg(`Código aplicado: ${codigo} (−${porcentaje}%)`, 'ok');
+    recalcularConDescuento();
+  });
+
   function aplicarCupon() {
     const codigo = (input.value || '').trim().toUpperCase();
     if (!codigo) {
@@ -1566,7 +1618,7 @@ function initCuponDescuento(scope = document) {
     if (!porcentaje) {
       window.cuponAplicado = null;
       mostrarMsg('Código inválido o vencido.', 'error');
-      recalcularConDescuento(); // quita descuento si había
+      recalcularConDescuento(); // Quita descuento si había
       return;
     }
     window.cuponAplicado = { codigo, porcentaje };
@@ -1603,20 +1655,20 @@ function initCuponDescuento(scope = document) {
       maximumFractionDigits: moneda === 'COP' ? 0 : 2
     });
 
-if (pct > 0) {
-  const subtotalTxt = `${simbolo} ${formato.format(subtotal)}`;
-  const totalTxt = `${simbolo} ${formato.format(totalConDescuento)}`;
-  precioTotalEl.innerHTML = `
-    <span class="etiqueta-precio">Total</span>
-    <span class="precio-tachado">${subtotalTxt}</span>
-    <span class="precio-grande">${totalTxt}</span>
-    <span class="badge-descuento">−${pct}% OFF</span>
-  `;
-} else {
-  precioTotalEl.innerHTML = `
-    <span class="etiqueta-precio">Total</span>
-    ${simbolo} ${formato.format(subtotal)}
-  `;
+    if (pct > 0) {
+      const subtotalTxt = `${simbolo} ${formato.format(subtotal)}`;
+      const totalTxt = `${simbolo} ${formato.format(totalConDescuento)}`;
+      precioTotalEl.innerHTML = `
+        <span class="etiqueta-precio">Total</span>
+        <span class="precio-tachado">${subtotalTxt}</span>
+        <span class="precio-grande">${totalTxt}</span>
+        <span class="badge-descuento">−${pct}% OFF</span>
+      `;
+    } else {
+      precioTotalEl.innerHTML = `
+        <span class="etiqueta-precio">Total</span>
+        ${simbolo} ${formato.format(subtotal)}
+      `;
     }
   }
 
@@ -1642,10 +1694,6 @@ if (pct > 0) {
   // Pinta estado inicial
   recalcularConDescuento();
 }
-
-
-
-
 
 
 
@@ -1700,7 +1748,6 @@ function cambiarImagen(direccion) {
   }
 }
 
-
 // Navegación con teclado dentro del visor
 document.addEventListener('keydown', (e) => {
   const visor = document.getElementById('visor-imagenes');
@@ -1714,7 +1761,6 @@ document.addEventListener('keydown', (e) => {
     cerrarVisorImagenes();
   }
 });
-
 
 
 
@@ -1770,11 +1816,44 @@ function modificarContador(btn, delta) {
 }
 
 
-
-
 function cerrarModalProducto(btn) {
   const modal = btn.closest('.modal-producto');
   if (modal) {
+    // Restablece el estado del modal
+    const inputCodigo = modal.querySelector('#input-codigo');
+    const mensajeCodigo = modal.querySelector('#mensaje-codigo');
+    const precioTotalEl = modal.querySelector('#precio-total');
+
+    if (inputCodigo) inputCodigo.value = '';
+    if (mensajeCodigo) {
+      mensajeCodigo.textContent = '';
+      mensajeCodigo.className = 'mensaje-codigo';
+    }
+
+    // Elimina el descuento aplicado
+    window.cuponAplicado = null;
+    if (precioTotalEl) {
+      const baseCOP = parseFloat(precioTotalEl.dataset.precioBase) || 0;
+      const moneda = localStorage.getItem('monedaSeleccionada') || 'COP';
+      const tasas = JSON.parse(localStorage.getItem('tasasCambio') || '{"COP":1}');
+      const tasa = tasas[moneda] || 1;
+
+      const total = baseCOP * tasa;
+      const simbolos = { COP: "$", USD: "US$", EUR: "€", MXN: "MX$", ARS: "AR$", BRL: "R$", GBP: "£", CLP: "CLP$", PEN: "S/" };
+      const simbolo = precioTotalEl.dataset.simbolo || simbolos[moneda] || '$';
+
+      const formato = new Intl.NumberFormat('es-CO', {
+        minimumFractionDigits: moneda === 'COP' ? 0 : 2,
+        maximumFractionDigits: moneda === 'COP' ? 0 : 2
+      });
+
+      precioTotalEl.innerHTML = `
+        <span class="etiqueta-precio">Total</span>
+        ${simbolo} ${formato.format(total)}
+      `;
+    }
+
+    // Cierra el modal
     modal.remove();
     document.body.classList.remove('body-no-scroll');
   }
@@ -1798,7 +1877,7 @@ function actualizarPrecioTotal() {
     const tipo = cont.dataset.tipo;
     if (tipo === 'mascotas' || tipo === 'bebés') return sum; // 👈 Ignoramos mascotas y bebés
     const cantidad = parseInt(cont.querySelector('.valor')?.textContent || '0');
-    return sum + cantidad;
+    return sum + (isNaN(cantidad) ? 0 : cantidad);
   }, 0);
 
   const cantidad = totalPersonas > 0 ? totalPersonas : 1;
