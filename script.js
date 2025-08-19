@@ -730,7 +730,7 @@ const productos = [
   descripcion: "Wala es energía, sabor y diversión. Un pasadía que combina relax y fiesta en perfecta armonía.",
   incluye: "Transporte marítimo, Almuerzo tipo gourmet, Coctel de bienvenida, Cama de playa, Seguro.",
   destacados: "Exclusividad, Ambiente caribeño, Servicio premium.",
-  restringidos: "",
+  restringidos: "No ingreso de niños",
   whatsapp: "+57 3239717041",
 },
 ];
