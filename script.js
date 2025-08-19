@@ -1,3 +1,13 @@
+// Deshabilitar clic derecho en toda la página
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault(); // Previene que aparezca el menú contextual
+});
+
+
+
+
+
+
 // ✅ Definición de productos turísticos
 const productos = [
 {
@@ -14,6 +24,22 @@ const productos = [
   restringidos: "",
   whatsapp: "+57 3239717041",
 },
+
+{
+  ciudad: "Baru E Isla Del Rosario",
+  nombre: "4 Islas + Mirador De Barú (Con Plancton)",
+  nombreEN: "4 Islands + Barú Viewpoint (With Plancton)",
+  tipo: "Tour",
+  carpetaImagenes: "img/AVENTURAS/2. TOURS ISLAS DEL ROSARIO Y BARU/6. 4 ISLAS + MIRADOR DE BARÚ (CON PLANCTON)",
+  totalImagenes: 5,
+  precioCOP: 312500,
+  descripcion: "Explora cuatro islas paradisíacas y contempla Barú desde las alturas. Cierra el día con un baño mágico entre luces naturales.",
+  incluye: "Transporte terrestre, Transporte acuatico, Guía personalizado, Almuerzo, Snorkeling, Visita al planton, Bar abierto dentro del bote",
+  destacados: "Tour panorámico, Mirador de barú, Experiencia nocturna con plancton.",
+  restringidos: "",
+  whatsapp: "+57 3239717041",
+},
+
 
 {
   ciudad: "Cartagena",
@@ -70,21 +96,6 @@ const productos = [
   descripcion: "Navega entre cinco joyas del mar con barra libre, atardeceres dorados y un espectáculo nocturno de plancton luminoso.",
   incluye: "Transporte terrestre, Transporte acuatico, Guía personalizado, Almuerzo, Snorkeling, Visita al planton, Bar abierto dentro del bote",
   destacados: "Barra libre, Visita a 5 islas exclusivas, Nado con plancton luminoso.",
-  restringidos: "",
-  whatsapp: "+57 3239717041",
-},
-
-{
-  ciudad: "Baru E Isla Del Rosario",
-  nombre: "4 Islas + Mirador De Barú (Con Plancton)",
-  nombreEN: "4 Islands + Barú Viewpoint (With Plancton)",
-  tipo: "Tour",
-  carpetaImagenes: "img/AVENTURAS/2. TOURS ISLAS DEL ROSARIO Y BARU/6. 4 ISLAS + MIRADOR DE BARÚ (CON PLANCTON)",
-  totalImagenes: 5,
-  precioCOP: 312500,
-  descripcion: "Explora cuatro islas paradisíacas y contempla Barú desde las alturas. Cierra el día con un baño mágico entre luces naturales.",
-  incluye: "Transporte terrestre, Transporte acuatico, Guía personalizado, Almuerzo, Snorkeling, Visita al planton, Bar abierto dentro del bote",
-  destacados: "Tour panorámico, Mirador de barú, Experiencia nocturna con plancton.",
   restringidos: "",
   whatsapp: "+57 3239717041",
 },
@@ -796,6 +807,25 @@ function cerrarModalIdiomaMoneda() {
     document.body.classList.remove('body-no-scroll'); // ✅ vuelve a activar scroll
   }
 }
+
+
+
+// Función para abrir el modal
+function abrirModal() {
+  const modal = document.getElementById('contenidoModal');
+  modal.style.display = 'flex';  // muestra el modal
+  document.body.classList.add('body-no-scroll');  // 🚫 desactiva scroll
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+  const modal = document.getElementById('contenidoModal');
+  modal.style.display = 'none';  // oculta el modal
+  document.body.classList.remove('body-no-scroll');  // ✅ vuelve a activar scroll
+}
+
+
+
 
 
 
