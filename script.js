@@ -1605,9 +1605,10 @@ function initCuponDescuento(scope = document) {
   const btn   = scope.querySelector('#btn-aplicar-codigo');
   const msg   = scope.querySelector('#mensaje-codigo');
   const precioTotalEl = scope.querySelector('#precio-total');
+  const metodoPagoEl = scope.querySelector('#metodo-pago');
 
-  if (!input || !btn || !msg || !precioTotalEl) {
-    console.warn('Cupón: faltan elementos (#input-codigo, #btn-aplicar-codigo, #mensaje-codigo o #precio-total).');
+  if (!input || !btn || !msg || !precioTotalEl || !metodoPagoEl) {
+    console.warn('Cupón: faltan elementos (#input-codigo, #btn-aplicar-codigo, #mensaje-codigo, #precio-total o #metodo-pago).');
     return;
   }
 
@@ -1617,26 +1618,8 @@ function initCuponDescuento(scope = document) {
   btn.addEventListener('click', () => aplicarCupon());
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') aplicarCupon(); });
 
-  // Monitorea cambios en el campo de entrada
-  input.addEventListener('input', () => {
-    const codigo = (input.value || '').trim().toUpperCase();
-    if (!codigo) {
-      window.cuponAplicado = null;
-      mostrarMsg('Ingresa un código de promoción.', 'warn');
-      recalcularConDescuento(); // Quita descuento si había
-      return;
-    }
-    const porcentaje = CUPONES[codigo];
-    if (!porcentaje) {
-      window.cuponAplicado = null;
-      mostrarMsg('Código inválido o vencido.', 'error');
-      recalcularConDescuento(); // Quita descuento si había
-      return;
-    }
-    window.cuponAplicado = { codigo, porcentaje };
-    mostrarMsg(`Código aplicado: ${codigo} (−${porcentaje}%)`, 'ok');
-    recalcularConDescuento();
-  });
+  // Actualiza el total en tiempo real al cambiar el método de pago
+  metodoPagoEl.addEventListener('change', () => recalcularConDescuento());
 
   function aplicarCupon() {
     const codigo = (input.value || '').trim().toUpperCase();
@@ -1648,7 +1631,7 @@ function initCuponDescuento(scope = document) {
     if (!porcentaje) {
       window.cuponAplicado = null;
       mostrarMsg('Código inválido o vencido.', 'error');
-      recalcularConDescuento(); // Quita descuento si había
+      recalcularConDescuento(); // quita descuento si había
       return;
     }
     window.cuponAplicado = { codigo, porcentaje };
@@ -1671,11 +1654,17 @@ function initCuponDescuento(scope = document) {
     }, 0);
 
     const cantidad = totalPersonas > 0 ? totalPersonas : 1;
-    const subtotal = baseCOP * cantidad * tasa;
+    let subtotal = baseCOP * cantidad * tasa;
 
     const pct = window.cuponAplicado?.porcentaje || 0;
     const descuento = subtotal * (pct / 100);
-    const totalConDescuento = subtotal - descuento;
+    subtotal -= descuento;
+
+    // Aplica un 7% adicional si el método de pago es Tarjeta o Transferencia
+    const metodoPago = metodoPagoEl?.value || '';
+    if (metodoPago === 'Transferencia' || metodoPago === 'Tarjeta') {
+      subtotal *= 1.07;
+    }
 
     const simbolos = { COP: "$", USD: "US$", EUR: "€", MXN: "MX$", ARS: "AR$", BRL: "R$", GBP: "£", CLP: "CLP$", PEN: "S/" };
     const simbolo = precioTotalEl.dataset.simbolo || simbolos[moneda] || '$';
@@ -1685,14 +1674,15 @@ function initCuponDescuento(scope = document) {
       maximumFractionDigits: moneda === 'COP' ? 0 : 2
     });
 
-    if (pct > 0) {
-      const subtotalTxt = `${simbolo} ${formato.format(subtotal)}`;
-      const totalTxt = `${simbolo} ${formato.format(totalConDescuento)}`;
+    if (pct > 0 || metodoPago === 'Transferencia' || metodoPago === 'Tarjeta') {
+      const subtotalTxt = `${simbolo} ${formato.format(baseCOP * cantidad * tasa)}`;
+      const totalTxt = `${simbolo} ${formato.format(subtotal)}`;
       precioTotalEl.innerHTML = `
         <span class="etiqueta-precio">Total</span>
         <span class="precio-tachado">${subtotalTxt}</span>
         <span class="precio-grande">${totalTxt}</span>
-        <span class="badge-descuento">−${pct}% OFF</span>
+        ${metodoPago === 'Transferencia' || metodoPago === 'Tarjeta' ? '<span class="badge-incremento">+7% por método de pago</span>' : ''}
+        ${pct > 0 ? `<span class="badge-descuento">−${pct}% OFF</span>` : ''}
       `;
     } else {
       precioTotalEl.innerHTML = `
@@ -1853,6 +1843,7 @@ function cerrarModalProducto(btn) {
     const inputCodigo = modal.querySelector('#input-codigo');
     const mensajeCodigo = modal.querySelector('#mensaje-codigo');
     const precioTotalEl = modal.querySelector('#precio-total');
+    const metodoPagoEl = modal.querySelector('#metodo-pago');
 
     if (inputCodigo) inputCodigo.value = '';
     if (mensajeCodigo) {
@@ -1868,19 +1859,30 @@ function cerrarModalProducto(btn) {
       const tasas = JSON.parse(localStorage.getItem('tasasCambio') || '{"COP":1}');
       const tasa = tasas[moneda] || 1;
 
-      const total = baseCOP * tasa;
-      const simbolos = { COP: "$", USD: "US$", EUR: "€", MXN: "MX$", ARS: "AR$", BRL: "R$", GBP: "£", CLP: "CLP$", PEN: "S/" };
-      const simbolo = precioTotalEl.dataset.simbolo || simbolos[moneda] || '$';
+      let total = baseCOP * tasa;
 
-      const formato = new Intl.NumberFormat('es-CO', {
-        minimumFractionDigits: moneda === 'COP' ? 0 : 2,
-        maximumFractionDigits: moneda === 'COP' ? 0 : 2
-      });
+      // Verifica si el elemento del método de pago existe y tiene un valor
+      if (metodoPagoEl) {
+        metodoPagoEl.addEventListener('change', () => {
+          const metodoPago = metodoPagoEl.value;
+          if (metodoPago === 'Transferencia' || metodoPago === 'Tarjeta') {
+            total *= 1.07; // Aplica el 7%
+          }
 
-      precioTotalEl.innerHTML = `
-        <span class="etiqueta-precio">Total</span>
-        ${simbolo} ${formato.format(total)}
-      `;
+          const simbolos = { COP: "$", USD: "US$", EUR: "€", MXN: "MX$", ARS: "AR$", BRL: "R$", GBP: "£", CLP: "CLP$", PEN: "S/" };
+          const simbolo = precioTotalEl.dataset.simbolo || simbolos[moneda] || '$';
+
+          const formato = new Intl.NumberFormat('es-CO', {
+            minimumFractionDigits: moneda === 'COP' ? 0 : 2,
+            maximumFractionDigits: moneda === 'COP' ? 0 : 2
+          });
+
+          precioTotalEl.innerHTML = `
+            <span class="etiqueta-precio">Total</span>
+            ${simbolo} ${formato.format(total)}
+          `;
+        });
+      }
     }
 
     // Cierra el modal

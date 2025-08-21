@@ -995,7 +995,6 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 24px 0;
 }
 
 
@@ -1978,16 +1977,16 @@ background: #fff;
 .badge-descuento {
   display: inline-block;
   font-size: 0.85rem;
-  padding: 0.15rem 0.5rem;
   border-radius: 0.5rem;
   background: #e6f9ee;
 }
 
-
-
-
-
-
+.badge-incremento {
+  opacity: 0.7;
+  display: inline-block;
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+}
 
 footer {
   background: #ff8800;
