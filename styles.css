@@ -851,7 +851,7 @@ header {
 .descripcion-producto {
   font-size: 1rem;
   line-height: 1.5;
-  margin: 16px 0;
+  margin: 0px 0;
   color: #444;
 }
 
@@ -1361,7 +1361,7 @@ header {
   color: white;
   background: linear-gradient(135deg, #ff7e00, #ffae00); /* Degradado naranja */
   border: none;
-  border-radius: 10px;
+  border-radius: 25px;
   cursor: pointer;
   transition: background 150ms ease, transform 60ms ease, box-shadow 180ms ease;
   box-shadow: 0 6px 14px rgba(255, 140, 0, 0.3);
@@ -1520,7 +1520,7 @@ header {
   font-weight: bold;
   font-size: 15px;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   text-decoration: none;
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);

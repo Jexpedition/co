@@ -93,7 +93,7 @@ const productos = [
   carpetaImagenes: "img/AVENTURAS/2. TOURS ISLAS DEL ROSARIO Y BARU/5. 5 ISLAS PREMIUM (OPEN BAR + PLANCTON)",
   totalImagenes: 7,
   precioCOP: 437500,
-  descripcion: "Navega entre cinco joyas del mar con barra libre, atardeceres dorados y un espectáculo nocturno de plancton luminoso.",
+  descripcion: "Navega entre cinco joyas del mar with barra libre, atardeceres dorados y un espectáculo nocturno de plancton luminoso.",
   incluye: "Transporte terrestre, Transporte acuatico, Guía personalizado, Almuerzo, Snorkeling, Visita al planton, Bar abierto dentro del bote",
   destacados: "Barra libre, Visita a 5 islas exclusivas, Nado con plancton luminoso.",
   restringidos: "",
@@ -984,9 +984,9 @@ ${prod.restringidos ? `
   <!-- Contadores -->
   <div class="contadores">
     ${[
-      { tipo: "Adultos", edad: "13 o más años" },
-      { tipo: "Niños", edad: "3 a 12 años" },
-      { tipo: "Bebés", edad: "0 a 2 años" },
+      { tipo: "Adultos", edad: "13 años o más" },
+      { tipo: "Niños", edad: "2 - 12 años" },
+      { tipo: "Bebés", edad: "Menos de 2 años" },
       { tipo: "Mascotas", edad: "Cualquier edad" }
     ].map(({ tipo, edad }) => `
       <div class="contador" data-tipo="${tipo.toLowerCase()}">
@@ -1660,9 +1660,9 @@ function initCuponDescuento(scope = document) {
     const descuento = subtotal * (pct / 100);
     subtotal -= descuento;
 
-    // Aplica un 7% adicional si el método de pago es Tarjeta o Transferencia
+    // Aplica un 7% adicional si el método de pago es Tarjeta
     const metodoPago = metodoPagoEl?.value || '';
-    if (metodoPago === 'Transferencia' || metodoPago === 'Tarjeta') {
+    if (metodoPago === 'Tarjeta') {
       subtotal *= 1.07;
     }
 
@@ -1674,14 +1674,14 @@ function initCuponDescuento(scope = document) {
       maximumFractionDigits: moneda === 'COP' ? 0 : 2
     });
 
-    if (pct > 0 || metodoPago === 'Transferencia' || metodoPago === 'Tarjeta') {
+    if (pct > 0 || metodoPago === 'Tarjeta') {
       const subtotalTxt = `${simbolo} ${formato.format(baseCOP * cantidad * tasa)}`;
       const totalTxt = `${simbolo} ${formato.format(subtotal)}`;
       precioTotalEl.innerHTML = `
         <span class="etiqueta-precio">Total</span>
         <span class="precio-tachado">${subtotalTxt}</span>
         <span class="precio-grande">${totalTxt}</span>
-        ${metodoPago === 'Transferencia' || metodoPago === 'Tarjeta' ? '<span class="badge-incremento">+7% por método de pago</span>' : ''}
+        ${metodoPago === 'Tarjeta' ? '<span class="badge-incremento">+7% por método de pago</span>' : ''}
         ${pct > 0 ? `<span class="badge-descuento">−${pct}% OFF</span>` : ''}
       `;
     } else {
@@ -2096,11 +2096,17 @@ window.buscarActividades = function() {
     document.getElementById("search").value = '';
     const filtrados = productos.filter(p => p.tipo === tipo);
     mostrarProductos(filtrados);
+
+    // Restablecer el selector de orden-precio al valor predeterminado
+    const ordenPrecioEl = document.getElementById("orden-precio");
+    if (ordenPrecioEl) {
+      ordenPrecioEl.value = ''; // Selecciona la opción predeterminada "Ordenar por"
+      ordenPrecioEl.dispatchEvent(new Event('change')); // Forzar actualización visual
+    }
   };
 
   // Resetear filtros con boton todo
   window.resetearFiltros = function() {
-    document.getElementById("search").value = '';      // limpia buscador
     mostrarProductos(productos); // muestra todo el array original
   };
 
