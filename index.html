@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jexpedition | Tu destino está aquí | Pasadías, tours y más </title>
+  <link rel="icon" type="image/png" href="logos/logoinicio.png">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+
+
+</head>
+
+<body>
+<!-- HERO + BUSCADOR UNIFICADO (versión sencilla, sin div envolvente) -->
+<section id="hero-jexp">
+  <div class="hero-simple-header">
+<!-- Logo para pantallas grandes -->
+<img src="logos/logo.png" alt="Jexpedition logo" 
+     class="hero-logo hero-logo-lg" 
+     onclick="location.reload()" />
+
+<!-- Logo para pantallas pequeñas -->
+<img src="logos/logosimple.png" alt="Jexpedition logo" 
+     class="hero-logo hero-logo-sm" 
+     onclick="location.reload()" />
+
+
+
+
+
+
+    
+<div class="botones-header">
+  <button onclick="abrirModalIdiomaMoneda()" aria-label="Cambiar idioma y moneda" class="idioma-moneda-btn">
+    <img src="iconos/moneda.png" alt="Idioma y moneda" class="icono-boton" />
+  </button>
+
+<!-- Botón para abrir el panel -->
+<button onclick="abrirMenu()" aria-label="Abrir menú" class="idioma-moneda-btn">
+  <img src="iconos/menu.png" alt="Menú" class="icono-boton" />
+</button>
+
+<!-- Panel que se abrirá -->
+<div id="panelMenu" class="panel-menu">
+  <div class="contenido-panel">
+    <span class="cerrar" onclick="cerrarMenu()">&times;</span>
+
+
+
+
+
+
+     <img src="iconos/verificado.png" alt="Imagen colaborador" class="imagen-colaborador">
+    <!-- Sección "Conviértete en Colaborador" -->
+    <div class="colaborador">
+      <h3>¡Conviértete en Colaborador!</h3>
+<p>Conviértete en colaborador y gana dinero recomendando nuestras experiencias.</p>
+
+      
+<a
+  href="https://wa.me/573239717041?text=¡Hola!%2C%20quiero%20ser%20colaborador%20de%20Jexpedition."
+  target="_blank"
+  class="btn-colaborador"
+>
+Quiero ser colaborador
+</a>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="modal-moneda" class="modal-moneda oculto">
+  <div class="modal-preferencias">
+    <span class="cerrar" onclick="cerrarModalIdiomaMoneda()">&times;</span>
+    <h2>Moneda</h2>
+
+
+    <!-- Sección de moneda -->
+    <div class="seccion-modal">
+      <select id="selector-moneda">
+        <option value="COP">COP 🇨🇴</option>
+        <option value="USD">USD 🇺🇸</option>
+        <option value="EUR">EUR 🇪🇺</option>
+        <option value="MXN">MXN 🇲🇽</option>
+        <option value="ARS">ARS 🇦🇷</option>
+        <option value="BRL">BRL 🇧🇷</option>
+        <option value="GBP">GBP 🇬🇧</option>
+        <option value="CLP">CLP 🇨🇱</option>
+        <option value="PEN">PEN 🇵🇪</option>
+      </select>
+    </div>
+
+    <button onclick="cerrarModalIdiomaMoneda()" class="btn-guardar-moneda">
+      Guardar
+    </button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+  </div>
+  </div>
+
+
+
+
+<div id="barra-fija">
+  <form id="buscador-sticky" class="hero-buscador" onsubmit="buscarActividades(); return false;">
+    <div class="buscador-contenedor">
+      <input type="text" id="search" placeholder="¿Qué buscas?" autocomplete="off" />
+      <button id="buscar-btn" type="submit" aria-label="Buscar">
+        <img src="iconos/buscar.png" alt="buscar">
+      </button>
+    </div>
+  </form>
+  <div class="hero-categorias">
+
+  <button onclick="resetearFiltros()" class="cat-btn">
+    <img src="iconos/todo.png" alt="" class="cat-icon" />
+    Todo
+  </button>
+    <!--<button onclick="filtrarPorCategoria('Viaje')" class="cat-btn">
+      <img src="iconos/viaje.png" alt="" class="cat-icon" />
+      Viajes
+    </button>-->
+    <button onclick="filtrarPorCategoria('Pasadía')" class="cat-btn">
+      <img src="iconos/pasadia.png" alt="" class="cat-icon" />
+      Pasadías
+    </button>
+    <button onclick="filtrarPorCategoria('Tour')" class="cat-btn">
+      <img src="iconos/tours.png" alt="" class="cat-icon" />
+      Tours
+    </button>
+
+    
+  </div>
+  <!-- Selector de orden -->
+<div class="orden-precio-contenedor">
+<select id="orden-precio" onchange="ordenarPorPrecio(this.value)">
+    <option value="" selected>Ordenar por</option>
+    <option value="asc">Precio más bajo</option>
+    <option value="desc">Precio más alto</option>
+  </select>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- CONTENEDOR DE PRODUCTOS (vacío, JS lo llena) -->
+<main id="lista-productos" class="productos"></main>
+
+
+
+
+
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/573239717041?text=Hola%2C%20quiero%20más%20información%20sobre%20*Jexpedition*" 
+   class="btn-whatsapp" 
+   target="_blank" 
+   aria-label="Chatear por WhatsApp">
+  <img src="iconos/whatsapp.png" alt="WhatsApp" />
+</a>
+
+
+
+
+<!-- TESTIMONIOS -->
+<section id="testimonios-jexp">
+  <h2>Lo que dicen nuestros viajeros</h2>
+  <p class="subtexto">Miles de personas han vivido experiencias inolvidables con nosotros. Esto es lo que opinan:</p>
+  <div class="testimonios-lista">
+    <div class="testimonio">
+      <p>“¡El mejor tour de mi vida! Santa Marta fue un paraíso y todo estuvo perfectamente organizado.”</p>
+      <span>- Laura G. (Bogotá)</span>
+    </div>
+    <div class="testimonio">
+      <p>“Reservar fue súper fácil. Me atendieron por WhatsApp y el tour en Cartagena superó todas mis expectativas.”</p>
+      <span>- Andrés P. (Medellín)</span>
+    </div>
+    <div class="testimonio">
+      <p>“El guía fue increíble, aprendimos muchísimo sobre Santa Marta. Repetiría sin dudarlo. Muy recomendado.”</p>
+      <span>- Camila R. (Cali)</span>
+    </div>
+    <div class="testimonio">
+      <p>“Todo fue puntual, seguro y organizado. Ideal para ir en pareja o en familia. ¡Gracias Jexpedition!”</p>
+      <span>- Felipe M. (Barranquilla)</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq-jexp">
+  <h2>Preguntas frecuentes</h2>
+  <details>
+    <summary>¿Cómo reservo una actividad?</summary>
+    <p>Selecciona la actividad que te interesa y haz clic en el botón de WhatsApp. Un asesor te atenderá personalmente para completar tu reserva.</p>
+  </details>
+  <details>
+    <summary>¿Es seguro reservar por aquí?</summary>
+    <p>Sí. Usamos métodos de pago seguros y nuestro equipo de atención está disponible en todo momento para resolver tus dudas. Somos una empresa verificada y con experiencia.</p>
+  </details>
+  <details>
+    <summary>¿Puedo cancelar o cambiar mi reserva?</summary>
+    <p>¡Claro! Tenemos políticas flexibles. Si necesitas reprogramar o cancelar tu actividad, solo contáctanos con anticipación y lo solucionamos contigo.</p>
+  </details>
+  <details>
+    <summary>¿Ofrecen descuentos para grupos?</summary>
+    <p>Sí. Si viajas en grupo o con tu familia, contáctanos para brindarte una cotización especial y beneficios adicionales.</p>
+  </details>
+  <details>
+    <summary>¿Incluyen transporte o alimentación?</summary>
+    <p>Depende de la actividad. En la descripción de cada tour verás si incluye transporte, alimentación u otros servicios. Si tienes dudas, escríbenos por WhatsApp.</p>
+  </details>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div id="footer-jexp">
+
+    <div class="redes">
+      <a href="https://wa.me/573239717041" target="_blank" aria-label="WhatsApp">WhatsApp</a>
+      <a href="https://www.instagram.com/jexpedition.co/" target="_blank" aria-label="Instagram">Instagram</a>
+    </div>
+    <p>© 2025 Jexpedition. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- Barra fija que se muestra al hacer scroll -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("scroll", () => {
+      const barra = document.getElementById("barra-fija");
+
+      if (window.scrollY > 80) {
+        barra.classList.add("fijo", "compacto");
+      } else {
+        barra.classList.remove("fijo", "compacto");
+      }
+    });
+  });
+</script>
+
+
+
+<!-- Flatpickr base -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!-- Localización en español -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+
+
+</body>
+</html>
