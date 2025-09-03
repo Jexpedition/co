@@ -1593,15 +1593,13 @@ const CUPONES = {
   '1002PUERTA0.2': 20,
   '1048OLIVERO0.2': 20,
   '1100HERAZO0.2': 20,
+  '1048DIAZ0.2': 20,
 };
 
 
 window.cuponAplicado = null;
 
-/**
- * Inicializa la lógica de cupones dentro del modal actual.
- * Llama: initCuponDescuento(modal)
- */
+
 function initCuponDescuento(scope = document) {
   const input = scope.querySelector('#input-codigo');
   const btn   = scope.querySelector('#btn-aplicar-codigo');
