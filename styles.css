@@ -24,6 +24,125 @@ header {
 
 
 
+/* Pantalla de bienvenida */
+.pantalla-bienvenida {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.imagen-bienvenida {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: fadeIn 1.5s ease-in-out;
+    filter: brightness(50%); /* más bajo = más oscuro */
+}
+
+.deslizar-indicador {
+  position: absolute;
+  bottom: 80px;
+  color: white;
+  font-size: 18px;
+  animation: bounce 1.5s infinite;
+}
+
+#flecha-arriba {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  opacity: 50%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Eliminé el efecto de translateY del panel de bienvenida */
+.pantalla-bienvenida {
+  transform: none; /* Sin movimiento de translateY */
+}
+
+/* Carrusel de imágenes en la pantalla de bienvenida */
+.carrusel-bienvenida {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carrusel-bienvenida .imagen-bienvenida {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carrusel-bienvenida .imagen-bienvenida.activa {
+  opacity: 1;
+}
+
+/* Animación para el indicador de deslizar */
+.deslizar-indicador {
+  animation: moverIndicador 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes moverIndicador {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
+
+
+
+
+
+/* Logotipo centrado en el carrusel */
+.carrusel-bienvenida {
+  position: relative;
+}
+
+.carrusel-bienvenida .logo-centrado {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 150px; /* Ajusta el tamaño según sea necesario */
+  height: auto;
+  opacity: 0; /* Oculto al inicio */
+  animation: fadeInLogo 2s ease forwards; /* Animación de entrada */
+}
+
+/* Animación de entrada */
+@keyframes fadeInLogo {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 0.5; /* Transparencia final */
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 
 
 
@@ -146,33 +265,38 @@ header {
   }
 }
 
-.orden-precio-contenedor {
-  margin: 5px;
-  margin-bottom: 5px;
+/* Contenedor general para empujar a la derecha */
+.filtro-wrapper {
   display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  align-items: center; /* Centra el contenido */
-  margin-left: auto;   /* Empuja el contenedor hacia la derecha */
+  justify-content: flex-end; /* manda el contenido a la derecha */
+  padding: 10px;
 }
 
-.orden-precio-contenedor label {
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: #333;
+/* Botón de filtro */
+.orden-precio-contenedor {
+  position: absolute;
+  right: 60px;
+  display: inline-block;
+  width: 32px;   /* tamaño del área */
+  height: 32px;
+  cursor: pointer;
 }
 
-#orden-precio {
-  width: 30%; /* Más controlado que el 50% */
-  padding: 2px 8px;
-  border: 1px solid #ddd;
-  border-radius: 24px;
-  font-size: 10px;
-  outline: none;
+.icono-filtro {
+  width: 100%;
+  height: 100%;
+  color: #000;
+  pointer-events: none; /* deja pasar el clic al select */
 }
 
-#orden-precio:focus {
-  border-color: #666;
+.orden-precio-contenedor select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* invisible pero funcional */
+  cursor: pointer;
 }
 
 
@@ -189,7 +313,7 @@ header {
 
 #barra-fija {
   position: sticky;
-  top: 0;
+  top: -1px;
   z-index: 999;
   background: white;
   transition: all 0.3s ease;
@@ -1712,23 +1836,30 @@ footer a {
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Línea inferior animada */
 .cat-btn::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -5px;
+  bottom: 0; /* justo al borde */
   height: 2px;
   width: 100%;
   background-color: #000;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s ease, height 0.3s ease;
+  transform: scaleX(0); /* oculta */
+  transform-origin: center; /* puedes usar left para que salga de izq. */
+  transition: transform 0.3s ease;
 }
 
+/* Al hacer hover aparece la línea */
 .cat-btn:hover::after {
   transform: scaleX(1);
-  height: 4px;
 }
+
+/* Si el botón está activo, queda marcada la línea */
+.cat-btn.active::after {
+  transform: scaleX(1);
+}
+
 
 .cat-btn:hover img {
   transform: scale(1.15);
@@ -1740,20 +1871,38 @@ footer a {
   justify-content: center;
   align-items: center;
   margin-top: 10px;
-  padding: 0px 10px;
+  padding: 0px 20px;
 }
+
+.orden-precio-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icono-filtro {
+  width: 20px;   /* tamaño fijo */
+  height: 20px;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 50%;
+}
+
+
+
 
 .buscador-contenedor {
   position: relative;
   width: 100%;
   max-width: 800px;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .buscador-contenedor input {
   width: 100%;
-  padding: 16px 60px 16px 20px;
+  padding: 16px 100px 16px 20px;
   border: #6665 1px solid;
   text-align: center;
   border-radius: 30px;
@@ -1873,6 +2022,92 @@ background: #fff;
     transform: scale(1);
   }
 }
+
+
+
+
+
+
+/* Contenedor "sin resultados" */
+.no-results {
+  text-align: center;
+  margin: 40px auto;
+  padding: 30px 25px;
+  background: linear-gradient(135deg, #fff, #fef2f2); /* Degradado suave */
+  color: #b91c1c; /* Rojo elegante */
+  border: 1px solid #fca5a5; /* Borde más sutil */
+  border-radius: 12px;
+  max-width: 640px;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.no-results h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #dc2626; /* Rojo más fuerte */
+}
+
+.no-results p {
+  font-size: 16px;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.no-results ul {
+  list-style: none;
+  margin: 16px 0 22px;
+  padding: 0;
+  text-align: left;
+}
+
+.no-results ul li {
+  margin: 8px 0;
+  padding-left: 26px;
+  position: relative;
+  font-size: 15px;
+}
+
+.no-results ul li::before {
+  content: "✔";
+  color: #16a34a; /* Verde check */
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Botón de WhatsApp */
+.whatsapp-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 28px;
+  background-color: #25d366;
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-button:hover {
+  background-color: #1da851;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.4);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
 
 
 /* === Testimonios === */
@@ -2157,12 +2392,6 @@ footer {
 
 
 
-
-
-
-
-
-
 /* Visor de imágenes */
 .collage-principal img,
 .galeria img {
@@ -2221,7 +2450,6 @@ footer {
   transform: translateY(-50%);
   z-index: 20;
   transition: background 0.2s ease;
-  border-radius: 50%;
 }
 
 
@@ -2253,6 +2481,8 @@ footer {
 .btn-cerrar-visor:hover {
   background: rgba(255, 255, 255, 0.5);
 }
+
+
 
 
 

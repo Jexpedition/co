@@ -12,6 +12,27 @@
 </head>
 
 <body>
+
+
+<!-- Pantalla de bienvenida con carrusel -->
+<div id="pantalla-bienvenida" class="pantalla-bienvenida">
+  <div class="carrusel-bienvenida">
+    <img src="img/AVENTURAS/5. PLAYAS PRIVADAS DE ISLAS DEL ROSARIO Y BARU/27. CAPRI BEACH CLUB/2.jpg" alt="Anuncio 1" class="imagen-bienvenida">
+    <img src="img/AVENTURAS/2. TOURS ISLAS DEL ROSARIO Y BARU/7. CHOLON FOREVER/1.jpg" alt="Anuncio 2" class="imagen-bienvenida">
+    <img src="img/AVENTURAS/5. PLAYAS PRIVADAS DE ISLAS DEL ROSARIO Y BARU/25. ISLA DEL ENCANTO DAY TOUR PREMIUN AGUA/1.jpg" alt="Anuncio 3" class="imagen-bienvenida">
+    <img src="img/AVENTURAS/5. PLAYAS PRIVADAS DE ISLAS DEL ROSARIO Y BARU/25. ISLA DEL ENCANTO DAY TOUR PREMIUN AGUA/4.jpg" alt="Anuncio 4" class="imagen-bienvenida">
+    <img src="img/AVENTURAS/5. PLAYAS PRIVADAS DE ISLAS DEL ROSARIO Y BARU/26. MANGATA/1.jpg " alt="Anuncio 5" class="imagen-bienvenida">
+    <!-- Logotipo centrado -->
+    <img src="logos/logoblanco.png" alt="Logotipo Jexpedition" class="logo-centrado">
+  </div>
+  <div class="deslizar-indicador">
+    <img src="iconos/arriba.png" alt="Flecha hacia arriba" id="flecha-arriba">
+  </div>
+</div>
+
+
+
+
 <!-- HERO + BUSCADOR UNIFICADO (versión sencilla, sin div envolvente) -->
 <section id="hero-jexp">
   <div class="hero-simple-header">
@@ -117,38 +138,23 @@ Quiero ser colaborador
 
 
 <div id="barra-fija">
-  <form id="buscador-sticky" class="hero-buscador" onsubmit="buscarActividades(); return false;">
-    <div class="buscador-contenedor">
-      <input type="text" id="search" placeholder="¿Qué buscas?" autocomplete="off" />
-      <button id="buscar-btn" type="submit" aria-label="Buscar">
-        <img src="iconos/buscar.png" alt="buscar">
-      </button>
-    </div>
-  </form>
-  <div class="hero-categorias">
+  <!-- Buscador -->
+<form id="buscador-sticky" class="hero-buscador" onsubmit="buscarActividades(); return false;">
+  <div class="buscador-contenedor">
+  <input type="text" id="search" placeholder="¿Qué buscas?" autocomplete="off" />
 
-  <button onclick="resetearFiltros()" class="cat-btn">
-    <img src="iconos/todo.png" alt="" class="cat-icon" />
-    Todo
+  <!-- Botón Buscar -->
+  <button id="buscar-btn" type="submit" aria-label="Buscar">
+    <img src="iconos/buscar.png" alt="buscar">
   </button>
-    <!--<button onclick="filtrarPorCategoria('Viaje')" class="cat-btn">
-      <img src="iconos/viaje.png" alt="" class="cat-icon" />
-      Viajes
-    </button>-->
-    <button onclick="filtrarPorCategoria('Pasadía')" class="cat-btn">
-      <img src="iconos/pasadia.png" alt="" class="cat-icon" />
-      Pasadías
-    </button>
-    <button onclick="filtrarPorCategoria('Tour')" class="cat-btn">
-      <img src="iconos/tours.png" alt="" class="cat-icon" />
-      Tours
-    </button>
 
-    
-  </div>
-  <!-- Selector de orden -->
+  <!-- Filtro al lado -->
 <div class="orden-precio-contenedor">
-<select id="orden-precio" onchange="ordenarPorPrecio(this.value)">
+  <!-- Imagen de filtro -->
+  <img src="iconos/filtrar.png" alt="Filtrar" class="icono-filtro">
+
+  <!-- Select invisible -->
+  <select id="orden-precio" onchange="ordenarPorPrecio(this.value)">
     <option value="" selected>Ordenar por</option>
     <option value="asc">Precio más bajo</option>
     <option value="desc">Precio más alto</option>
@@ -156,6 +162,26 @@ Quiero ser colaborador
 </div>
 
 </div>
+</form>
+
+  
+  <!-- Categorías -->
+  <div class="hero-categorias">
+    <button onclick="resetearFiltros()" class="cat-btn">
+      <img src="iconos/todo.png" alt="" class="cat-icon" /> Todo
+    </button>
+    <button onclick="filtrarPorCategoria('Pasadía')" class="cat-btn">
+      <img src="iconos/pasadia.png" alt="" class="cat-icon" /> Pasadías
+    </button>
+    <button onclick="filtrarPorCategoria('Tour')" class="cat-btn">
+      <img src="iconos/tours.png" alt="" class="cat-icon" /> Tours
+    </button>
+  </div>
+
+
+
+</div>
+
 
 
 
@@ -178,7 +204,7 @@ Quiero ser colaborador
 
 
 <!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/573239717041?text=Hola%2C%20quiero%20más%20información%20sobre%20*Jexpedition*" 
+<a href="https://wa.me/573239717041" 
    class="btn-whatsapp" 
    target="_blank" 
    aria-label="Chatear por WhatsApp">
@@ -234,6 +260,18 @@ Quiero ser colaborador
   <details>
     <summary>¿Incluyen transporte o alimentación?</summary>
     <p>Depende de la actividad. En la descripción de cada tour verás si incluye transporte, alimentación u otros servicios. Si tienes dudas, escríbenos por WhatsApp.</p>
+  </details>
+  <details>
+    <summary>¿Qué métodos de pago aceptan?</summary>
+    <p>Aceptamos transferencias bancarias, pagos con tarjeta de crédito y débito, y pagos en efectivo en puntos autorizados. Contáctanos para más detalles.</p>
+  </details>
+  <details>
+    <summary>¿Qué pasa si llueve el día de mi actividad?</summary>
+    <p>En caso de condiciones climáticas adversas, te ofreceremos opciones para reprogramar tu actividad o un reembolso según nuestras políticas.</p>
+  </details>
+  <details>
+    <summary>¿Puedo personalizar un tour?</summary>
+    <p>¡Por supuesto! Ofrecemos opciones personalizadas para grupos, empresas y eventos especiales. Contáctanos para diseñar una experiencia a tu medida.</p>
   </details>
 </section>
 

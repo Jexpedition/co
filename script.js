@@ -3,8 +3,37 @@ document.addEventListener('contextmenu', function(e) {
   e.preventDefault(); // Previene que aparezca el menú contextual
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const pantallaBienvenida = document.getElementById('pantalla-bienvenida');
+  const imagenes = document.querySelectorAll('.carrusel-bienvenida .imagen-bienvenida');
+  let indiceActual = 0;
 
+  // 🚫 Bloquear scroll al cargar
+  document.body.style.overflow = "hidden";
 
+  // Mostrar la primera imagen como activa al inicio
+  if (imagenes.length > 0) {
+    imagenes[0].classList.add('activa');
+  }
+
+  // Cambiar imágenes automáticamente con efecto de fade
+  setInterval(() => {
+    imagenes[indiceActual].classList.remove('activa');
+    indiceActual = (indiceActual + 1) % imagenes.length;
+    imagenes[indiceActual].classList.add('activa');
+  }, 3000); // Cambia cada 3 segundos
+
+  // Al hacer clic, desplazar hacia arriba y ocultar pantalla
+  pantallaBienvenida.addEventListener('click', () => {
+    pantallaBienvenida.style.transition = 'transform 0.8s ease';
+    pantallaBienvenida.style.transform = 'translateY(-100%)';
+
+    setTimeout(() => {
+      pantallaBienvenida.style.display = 'none';
+      document.body.style.overflow = "auto"; // 🔓 Activar scroll
+    }, 800); // Coincide con la duración de la transición
+  });
+});
 
 
 
@@ -1018,6 +1047,11 @@ ${prod.restringidos ? `
 
 
 
+  <input type="text" id="nombre-titular" placeholder="">
+
+
+
+
 
 
 <label for="tipo-documento">Documento de identidad:</label>
@@ -1566,10 +1600,10 @@ if (!document.getElementById('visor-imagenes')) {
   visor.innerHTML = `
     <div class="fondo-visor" onclick="cerrarVisorImagenes()"></div>
     <div class="contenido-visor">
-      <button class="btn-navegar prev" onclick="cambiarImagen(-1)">❮</button>
       <img id="imagen-grande-visor" src="" alt="imagen ampliada">
-      <button class="btn-navegar next" onclick="cambiarImagen(1)">❯</button>
     </div>
+    <button class="btn-navegar prev" onclick="cambiarImagen(-1)">❮</button>
+    <button class="btn-navegar next" onclick="cambiarImagen(1)">❯</button>
     <button class="btn-cerrar-visor" onclick="cerrarVisorImagenes()">×</button>
   `;
   document.body.appendChild(visor);
@@ -1669,7 +1703,10 @@ function initCuponDescuento(scope = document) {
       subtotal *= 1.07;
     }
 
+   
+
     const simbolos = { COP: "$", USD: "US$", EUR: "€", MXN: "MX$", ARS: "AR$", BRL: "R$", GBP: "£", CLP: "CLP$", PEN: "S/" };
+   
     const simbolo = precioTotalEl.dataset.simbolo || simbolos[moneda] || '$';
 
     const formato = new Intl.NumberFormat('es-CO', {
@@ -1717,10 +1754,6 @@ function initCuponDescuento(scope = document) {
   // Pinta estado inicial
   recalcularConDescuento();
 }
-
-
-
-
 
 
 
@@ -2082,16 +2115,45 @@ function resetearFiltros() {
 
 window.buscarActividades = function() {
   const texto = normalizarTexto(document.getElementById("search").value.trim());
+  const contenedor = document.getElementById("lista-productos");
+
   if (!texto) {
     mostrarProductos(productos);
     return;
   }
+
   const resultado = productos.filter(p =>
     normalizarTexto(p.nombre).includes(texto) ||
     normalizarTexto(p.ciudad).includes(texto) ||
     normalizarTexto(p.tipo).includes(texto)
   );
-  mostrarProductos(resultado);
+
+  if (resultado.length === 0) {
+    contenedor.innerHTML = `
+<div class="no-results">
+  <h2>😕 ¡Upsss!</h2>
+  <p>No tenemos coincidencias para tu búsqueda en este momento.</p>
+  <p>
+    👉 Te sugerimos:
+    <ul>
+      <li>Revisar la ortografía de tu búsqueda.</li>
+      <li>Probar con palabras clave más generales.</li>
+      <li>Explorar nuestras categorías.</li>
+    </ul>
+  </p>
+  <p>Si aún no encuentras lo que buscas, ¡nuestro equipo está para ayudarte! 💬</p>
+  
+<a href="https://wa.me/573239717041" 
+   target="_blank" 
+   class="whatsapp-button">
+  📲 Contactar por WhatsApp
+</a>
+</div>
+
+    `;
+  } else {
+    mostrarProductos(resultado);
+  }
 };
 
 
@@ -2420,17 +2482,15 @@ function ordenarPorPrecio(tipo) {
   mostrarProductos(listaOrdenada);
 }
 
+document.querySelectorAll('.cat-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    // Elimina la clase activa de todos los botones
+    document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
 
-
-
-
-
-
-
-
-
-
-
+    // Agrega la clase activa al botón clicado
+    button.classList.add('active');
+  });
+});
 
 
 
@@ -2474,6 +2534,7 @@ async function cargarCodigosInternacionales() {
     select.innerHTML = `<option>Error al cargar códigos</option>`;
   }
 }
+
 
 
 
