@@ -1047,13 +1047,6 @@ ${prod.restringidos ? `
 
 
 
-  <input type="text" id="nombre-titular" placeholder="">
-
-
-
-
-
-
 <label for="tipo-documento">Documento de identidad:</label>
 <div class="grupo-documento">
   <select id="tipo-documento">
