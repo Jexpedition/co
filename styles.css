@@ -147,7 +147,7 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  width: 100px; /* Ajusta el tamaño según sea necesario */
+  width: 50px; /* Ajusta el tamaño según sea necesario */
   height: auto;
   opacity: 0; /* Oculto al inicio */
   animation: fadeInLogo 2s ease forwards; /* Animación de entrada */

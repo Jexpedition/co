@@ -858,20 +858,6 @@ function cerrarModal() {
 
 
 
-function abrirModalProducto() {
-  document.body.style.overflow = "hidden"; // desactiva scroll del fondo
-  document.querySelector(".modal-overlay").classList.add("activo");
-  document.querySelector(".modal-overlay").style.display = "flex";
-}
-
-function cerrarModalProducto(el) {
-  document.body.style.overflow = "auto"; // activa scroll del fondo
-  const overlay = el.closest(".modal-overlay");
-  overlay.classList.remove("activo");
-  setTimeout(() => {
-    overlay.style.display = "none"; // espera que termine la animación
-  }, 400);
-}
 
 
 
@@ -940,9 +926,8 @@ function abrirModalProducto(prod) {
   const modal = document.createElement('div');
   modal.className = 'modal-producto';
 
-  // Evita scroll de fondo
-  document.body.classList.add('body-no-scroll');
 
+  
   modal.innerHTML = `
   <div class="modal-overlay">
 
