@@ -39,20 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ✅ Definición de productos turísticos
 const productos = [
-{
-  ciudad: "Cartagena",
-  nombre: "Playa Blanca (Traslado Terrestre)",
-  nombreEN: "Playa Blanca (Ground Transfer)",
-  tipo: "Pasadía",
-  carpetaImagenes: "img/AVENTURAS/1. BARU/1. PLAYA BLANCA X TIERRA CON ALMUERZO",
-  totalImagenes: 6,
-  precioCOP: 87500,
-  descripcion: "Escápate al paraíso con arena blanca y aguas cristalinas. Incluye traslado cómodo y un delicioso almuerzo frente al mar.",
-  incluye: "Transporte terrestre, Guía personalizado, Almuerzo",
-  destacados: "Agua cristalina, Arena blanca, Ambiente tropical",
-  restringidos: "",
-  whatsapp: "+57 3239717041",
-},
 
 {
   ciudad: "Baru E Isla Del Rosario",
@@ -65,6 +51,36 @@ const productos = [
   descripcion: "Explora cuatro islas paradisíacas y contempla Barú desde las alturas. Cierra el día con un baño mágico entre luces naturales.",
   incluye: "Transporte terrestre, Transporte acuatico, Guía personalizado, Almuerzo, Snorkeling, Visita al planton, Bar abierto dentro del bote",
   destacados: "Tour panorámico, Mirador de barú, Experiencia nocturna con plancton.",
+  restringidos: "",
+  whatsapp: "+57 3239717041",
+},
+
+{
+  ciudad: "Cartagena",
+  nombre: "Cartagena 360°: Sol, Bahía y Fiesta",
+  nombreEN: "Cartagena 360°: Sun, Bay and Party",
+  tipo: "Pasadía",
+  carpetaImagenes: "img/AVENTURAS/0. PAQUETE/1. CARTAGENA 360",
+  totalImagenes: 8,
+  precioCOP: 150000,
+  descripcion: "🌊 Costa Azul: Sumérgete en la magia de aguas cristalinas y un paisaje costero que enamora. La brisa fresca y el entorno natural te invitan a relajarte y disfrutar de un día frente al mar. ⛵ Tour Bahía en Bote – Tarde y Noche: Navega por la bahía de Cartagena desde el atardecer hasta la noche. Contempla cómo el sol se despide con tonos dorados y vive la magia de la ciudad iluminada desde el agua, una vista que nunca olvidarás. 🎶 Discoteca en la Ciudad: Cierra tu día con la energía vibrante de la vida nocturna cartagenera. Música, luces y un ambiente festivo único harán que la diversión no tenga fin.",
+  incluye: "Transporte maritimo ida y vuelta, Almuerzo, Recorrido por la bahia; transporte hacia discoteca.",
+  destacados: "Aguas cristalinas, Arena blanca, Instalaciones semiprivadas, Vista del atardecer, Coctel, Musica",
+  restringidos: "Menores de edad, Mascotas",
+  whatsapp: "+57 3239717041",
+},
+
+{
+  ciudad: "Cartagena",
+  nombre: "Playa Blanca (Traslado Terrestre)",
+  nombreEN: "Playa Blanca (Ground Transfer)",
+  tipo: "Pasadía",
+  carpetaImagenes: "img/AVENTURAS/1. BARU/1. PLAYA BLANCA X TIERRA CON ALMUERZO",
+  totalImagenes: 6,
+  precioCOP: 87500,
+  descripcion: "Escápate al paraíso con arena blanca y aguas cristalinas. Incluye traslado cómodo y un delicioso almuerzo frente al mar.",
+  incluye: "Transporte terrestre, Guía personalizado, Almuerzo",
+  destacados: "Agua cristalina, Arena blanca, Ambiente tropical",
   restringidos: "",
   whatsapp: "+57 3239717041",
 },
@@ -1610,7 +1626,6 @@ const CUPONES = {
   '1043BABILONIA0.2': 20,
   '1003JIMENEZ0.2': 20,
   '1043PATERNINA0.2': 20,
-
 };
 
 
