@@ -64,7 +64,7 @@ const productos = [
   totalImagenes: 8,
   precioCOP: 150000,
   descripcion: "🌊 Costa Azul: Sumérgete en la magia de aguas cristalinas y un paisaje costero que enamora. La brisa fresca y el entorno natural te invitan a relajarte y disfrutar de un día frente al mar. ⛵ Tour Bahía en Bote – Tarde y Noche: Navega por la bahía de Cartagena desde el atardecer hasta la noche. Contempla cómo el sol se despide con tonos dorados y vive la magia de la ciudad iluminada desde el agua, una vista que nunca olvidarás. 🎶 Discoteca en la Ciudad: Cierra tu día con la energía vibrante de la vida nocturna cartagenera. Música, luces y un ambiente festivo único harán que la diversión no tenga fin.",
-  incluye: "Transporte maritimo ida y vuelta, Almuerzo, Recorrido por la bahia; transporte hacia discoteca.",
+  incluye: "Transporte maritimo ida y vuelta, Almuerzo, Recorrido por la bahia, transporte hacia discoteca.",
   destacados: "Aguas cristalinas, Arena blanca, Instalaciones semiprivadas, Vista del atardecer, Coctel, Musica",
   restringidos: "Menores de edad, Mascotas",
   whatsapp: "+57 3239717041",
