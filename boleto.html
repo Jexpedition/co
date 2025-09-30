@@ -21,11 +21,24 @@
       </div>
     </section>
 
+
+
 <div id="seccion-acciones" class="acciones">
-  <p>Antes de enviar el mensaje a whatsapp recuerda guardar este boleto</p>
-  <button onclick="descargarPDF()">Descargar boleto</button>
-  <a id="btn-wsp"  target="_blank">Enviar reserva a WhatsApp</a>
+  <h3 class="acciones-titulo">📌 Acciones</h3>
+  <p class="acciones-texto">
+    Antes de enviar el mensaje  de la reserva a whatsapp <strong>recuerda guardar este boleto.</strong>
+  </p>
+  <div class="acciones-botones">
+    <button onclick="descargarPDF()" class="btn-descargar">
+      📥 Descargar boleto
+    </button>
+    <a id="btn-wsp" target="_blank" class="btn-whatsapp">
+      💬 Enviar reserva a WhatsApp
+    </a>
+  </div>
 </div>
+
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

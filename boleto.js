@@ -3,26 +3,15 @@ function getParametro(nombre) {
   return urlParams.get(nombre) || "";
 }
 
-// ✅ Generar código de referencia único
-function generarCodigoReferencia() {
-  const now = new Date();
-  return `JEX-${now.getFullYear()}${(now.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}${now.getDate().toString().padStart(2, "0")}-${now
-    .getHours()
-    .toString()
-    .padStart(2, "0")}${now.getMinutes().toString().padStart(2, "0")}${now
-    .getSeconds()
-    .toString()
-    .padStart(2, "0")}-${Math.floor(Math.random() * 900 + 100)}`;
-}
 
-// ✅ Recuperar o generar referencia persistente
-let refGenerado = localStorage.getItem("codigoReferencia");
-if (!refGenerado) {
-  refGenerado = generarCodigoReferencia();
-  localStorage.setItem("codigoReferencia", refGenerado);
-}
+
+
+// ✅ Toma la referencia que generó script.js (primero por URL, si no por localStorage, si no usa '---')
+const refGenerado = getParametro("referencia") || localStorage.getItem("codigoReferencia") || '---';
+
+
+
+
 
 window.addEventListener("DOMContentLoaded", () => {
   const producto = getParametro("producto");
@@ -168,7 +157,7 @@ async function descargarPDF() {
 
 // ✅ Función que envía los datos a Google Sheets
 async function enviarDatosASheets() {
-  const referencia = localStorage.getItem("codigoReferencia") || "---";
+  const referencia = refGenerado; // 👈 usa el mismo que ya cargaste al inicio
   const fechaEnvio = new Date().toLocaleString("es-CO");
   const params = new URLSearchParams(window.location.search);
 
@@ -206,6 +195,22 @@ async function enviarDatosASheets() {
   });
 
 
+// Obtener porcentaje de ganancia desde el producto
+const porcentajeGanancia = producto?.ganancia || 0;
+
+// ✅ Calcular total de ganancia sobre el precio con descuento si existe
+let baseGanancia;
+if (precioConDescuento && precioConDescuento > 0) {
+  baseGanancia = precioConDescuento;
+} else {
+  baseGanancia = totalCOP;
+}
+
+const totalGanancia = baseGanancia * porcentajeGanancia;
+
+
+
+// Preparar datos a enviar a Google Sheets
 const datos = {
   referencia,
   fecha_envio: fechaEnvio,
@@ -223,16 +228,21 @@ const datos = {
   descripcion_cupon: params.get("mensaje") || "",
   precio_total: formatoCOP.format(totalCOP),
   precio_descuento: formatoCOP.format(precioConDescuento),
-  precio_moneda_cliente: getParametro('precio') || '',
+  porcentaje_ganancia: porcentajeGanancia,   // Q
+  total_ganancia: formatoCOP.format(totalGanancia) // R
 };
 
-console.log(Object.values(datos));  // Te debe dar un arreglo de 17 elementos
 
-console.log(Object.keys(datos).length); // ¿Da 16?
-console.log(datos);
+
+// 🟢 Consola detallada
+console.log("==== DATOS A ENVIAR A GOOGLE SHEETS ====");
+Object.entries(datos).forEach(([key, value], i) => {
+  console.log(`${i + 1}. ${key}:`, value);
+});
+console.log("========================================");
 
   const urlScript =
-    "https://script.google.com/macros/s/AKfycbw3jkmjQCjritK8I0CivHizWR92Ci3nH6Ry1My8fqQyiYgR7k05Dc6CycL9WqDLW9ug/exec";
+    "https://script.google.com/macros/s/AKfycby4rmEwjo-dTeCTfrc_YR5WOgJOkANXJsSnSMkcTA0SNHjE_Yo7KkqD8ppp3rwrxxBg/exec";
 
   try {
     await fetch(urlScript, {
