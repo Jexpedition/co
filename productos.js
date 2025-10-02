@@ -9,7 +9,7 @@ const productos = [
   carpetaImagenes: "img/AVENTURAS/2. TOURS ISLAS DEL ROSARIO Y BARU/6. 4 ISLAS + MIRADOR DE BARÚ (CON PLANCTON)",
   totalImagenes: 5,
   precioCOP: 312500,
-  ganancia: 0.0,
+  ganancia: 0.00,
   descripcion: "Explora cuatro islas paradisíacas y contempla Barú desde las alturas. Cierra el día con un baño mágico entre luces naturales.",
   incluye: "Transporte terrestre, Transporte acuatico, Guía personalizado, Almuerzo, Snorkeling, Visita al planton, Bar abierto dentro del bote",
   destacados: "Tour panorámico, Mirador de barú, Experiencia nocturna con plancton.",
